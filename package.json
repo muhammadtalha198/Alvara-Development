@@ -1,0 +1,48 @@
+{
+  "name": "alvara-protocol",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "send2fuji": "FUNCTION_NAME=transferTokensSep2Avax npx hardhat run scripts/axelar/scripts/alva_ether_token_interaction_1.js --network sepolia",
+    "send2sepolia": "FUNCTION_NAME=transferTokensAvax2Sep npx hardhat run scripts/axelar/scripts/alva_ether_token_interaction_1.js --network fuji"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.6",
+    "@nomicfoundation/hardhat-ignition": "^0.15.10",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.10",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.12",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.13",
+    "@nomicfoundation/ignition-core": "^0.15.10",
+    "@openzeppelin/hardhat-upgrades": "^3.1.1",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.20",
+    "@types/mocha": "^10.0.10",
+    "chai": "^4.5.0",
+    "ethers": "^6.13.0",
+    "hardhat": "^2.22.12",
+    "hardhat-gas-reporter": "^2.2.1",
+    "solidity-coverage": "^0.8.14",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@axelar-network/axelarjs-sdk": "^0.16.1",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@openzeppelin/contracts-upgradeable": "^4.9.6",
+    "@prb/math": "^4.1.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-deploy": "^0.12.4"
+  }
+}
