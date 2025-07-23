@@ -24,34 +24,40 @@ interface IFactory {
     function getAmountsOut(uint256 _amount, address[] memory _path) external view returns (uint);
     function getPath(address _tokenA, address _tokenB) external pure returns (address[] memory);
 
+       struct BTSFactoryInitParams {
+        address _alva;
+        address _bsktImplementation;
+        address _bsktPairImplementation;
+        address _routerAddress;
+        address _wethAddress;
+        address _royaltyReceiver;
+        address _feeCollector;
+        address _defaultMarketplace;
+        uint16 _minPercentALVA;
+        uint256 _monthlyFeeRate;
+        string _collectionUri;
+        uint256 _minBSKTCreationAmount;
+    }
+
     // --- Mutative Functions ---
-    function initialize(
-        address _alva,
-        uint16 _minPercentALVA,
-        address _bsktImplementation,
-        address _bsktPairImplementation,
-        uint256 _monthlyFeeRate,
-        address _royaltyReceiver,
-        string calldata _collectionUri,
-        address _feeCollector,
-        address _defaultMarketplace,
-        address _routerAddress,
-        address _wethAddress,
-        uint256 _minBSKTCreationAmount
-    ) external;
+    function initialize(BTSFactoryInitParams calldata params) external;
 
     function setMinLpWithdrawal(uint256 newMin) external;
-    function createBSKT(
-        string calldata _name,
-        string calldata _symbol,
-        address[] calldata _tokens,
-        uint256[] calldata _weights,
-        string calldata _tokenURI,
-        uint256 _buffer,
-        string calldata _id,
-        string calldata _description,
-        uint256 _deadline
-    ) external payable;
+
+
+    struct BSKTInput {
+        string name;
+        string symbol;
+        address[] tokens;
+        uint256[] weights;
+        string tokenURI;
+        uint256 buffer;
+        string id;
+        string description;
+        uint256 deadline;
+    }
+    function createBSKT(BSKTInput calldata input) external payable;
+
     function updateBSKTImplementation(address _bsktImplementation) external;
     function updateBSKTPairImplementation(address _bsktPairImplementation) external;
     function updateAlva(address _alva) external;

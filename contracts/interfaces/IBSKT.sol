@@ -2,18 +2,21 @@
 pragma solidity ^0.8.26;
 
 interface IBSKT {
-    function initialize(
-        string calldata _name,
-        string calldata _symbol,
-        address _owner,
-        address _factoryAddress,
-        address[] calldata _tokens,
-        uint256[] calldata _weights,
-        address _bsktPair,
-        string calldata _tokenURI,
-        string calldata _id,
-        string calldata _description
-    ) external;
+
+       struct BasketParams {
+        string name;
+        string symbol;
+        address owner;
+        address factoryAddress;
+        address[] tokens;
+        uint256[] weights;
+        address bsktPair;
+        string tokenURI;
+        string id;
+        string description;
+    }
+
+    function initialize(BasketParams calldata params)external;
 
     function contribute(uint256 _buffer, uint256 _deadline) external payable;
     function withdrawETH(uint256 _liquidity, uint256 _buffer, uint256 _deadline) external;
