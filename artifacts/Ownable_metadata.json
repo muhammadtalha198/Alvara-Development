@@ -119,7 +119,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Alva/Alva_flattened.sol": "Ownable"
+			"contracts/tokens/BSKTPairBeacon_flattened.sol": "Ownable"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -133,12 +133,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"Alva/Alva_flattened.sol": {
-			"keccak256": "0x435c8d04894b0ba8639fcb3278a9b9b183d2003108deba5a25e971bbfe93e6e6",
-			"license": "MIT",
+		"contracts/tokens/BSKTPairBeacon_flattened.sol": {
+			"keccak256": "0x4738b09c7bf554eddae62284b82029b9776da1d3fec4ffbb3fe73035da86f2ca",
 			"urls": [
-				"bzz-raw://c4a32a971a8281fdfa9f0615b1b363d2a2951f4837925d94abd45f169740fd8a",
-				"dweb:/ipfs/Qmbdos1HiPL6fEgNYuzx6SGwRzeGfYvt3SiyZCdruvKj1B"
+				"bzz-raw://a04f066cdf6b4227b8a639d0d6fbbc98ca4805ad0ee970626d66cadba52143c8",
+				"dweb:/ipfs/Qmd7FwJBNMSCEPbDb8UHYnsjP6upkVMk8f1ydfeY8C4MX2"
 			]
 		}
 	},

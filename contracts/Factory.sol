@@ -62,8 +62,13 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
 //     uint256 _minBSKTCreationAmount;
 // }
 
-// ["0xD4Fc541236927E2EAf8F27606bD7309C1Fc2cbee","0xcD6a42782d230D7c13A74ddec5dD140e55499Df9","0xaE036c65C649172b43ef7156b009c6221B596B8b","0xaE036c65C649172b43ef7156b009c6221B596B8b","0x5FD6eB55D12E759a21C09eF703fe0CBa1DC9d88D","0x5B38Da6a701c568545dCfcB03FcB875f56beddC4","0x5B38Da6a701c568545dCfcB03FcB875f56beddC4","0x5B38Da6a701c568545dCfcB03FcB875f56beddC4",100,10,"_collectionUri",0]
+// ["0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71","0x3128Ef4221F151D0F9D9E04aD70CF5Af052a6F37","0x9342Dc51Aea8015ca497E7abF39030Ef28136471","0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3","0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915",100,10,"_collectionUri",10]
 
+// Remix 
+// ["0xeF50110EAc01512796e7AaFEe68458800A4bD358","0x62FF318Bee4D6d605D163Ed3325077E32803599B","0xDf159010A8d1B173262EBb3D7b5393Dc0333301d","0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3","0xD31f44e3C93cB349BD3aFAD9725Bca50C410b27c","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915",100,10,"_collectionUri",10]
+
+// Monad 0xE53C8912c40066c47258f54d42B8Ec9253086F8e
+// ["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0xeF2B7db5Dfba8Cab0BAefD289Eb4F35d6D1dFDe8","0xC27c2a1ce48493D9d82E66F93323Ef803000C22a","0xfB8e1C3b833f9E67a71C859a132cf783b645e436","0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0",100,10,"_collectionUri",10]
 
     address[] public bsktList;
     mapping(address => bool) public whitelistedContracts;
@@ -75,6 +80,7 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
     }
 
     function initialize(BTSFactoryInitParams calldata params) external initializer {
+        
         _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
         __ReentrancyGuard_init();
 
@@ -126,103 +132,142 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
     //     address[] tokens;
     //     uint256[] weights;
     //     string tokenURI;
-    //     uint256 buffer;
+    //     uint256 slippage;
     //     string id;
     //     string description;
     //     uint256 deadline;
     // }
 
-    
+    // 100
+    // 100
+
+
+// ["LstBTC","LstBTC",["0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71","0x0fc4580f70C517B148a141f3721C5138f74401b1"],[3000,7000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+
+
+// ["0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71"]
+// ["0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71","0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14"]
+
+// ["0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0x0fc4580f70C517B148a141f3721C5138f74401b1"]
+
+
+// MONAD
+// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+
+    //Remix
+//      ["LstBTC","LstBTC",["0xeF50110EAc01512796e7AaFEe68458800A4bD358"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+
 
     function createBSKT(BSKTInput calldata input) external payable nonReentrant {
-    
+        
         uint256 amountAfterFee = _validateAndChargeCreationFee(input);
+        require(amountAfterFee < msg.value,"amountAfterFee is not less then msg.value");
 
         (address _bskt, address _bsktPair) = _initializeBSKTWithPair(input);
+        require(_bskt != address(0) && _bsktPair != address(0), "bskt, _bsktPair address is zero");
 
         (uint256 totalETHswapped, uint256[] memory amounts) = _swapETHForTokens(_bsktPair, input, amountAfterFee);
 
+        require( totalETHswapped > 0, "totalETHswapped is less then  0");
+       
         bsktList.push(_bskt);
-        IBSKTPair(_bsktPair).mint(msg.sender, amounts);
+            
+            require(bsktList.length > 0, "bsktList.length address is zero");
+        
+        // IBSKTPair(_bsktPair).mint(msg.sender, amounts);
         OwnableUpgradeable(_bsktPair).transferOwnership(_bskt);
+        
+        require( IBSKTPair(_bsktPair).getOwner() == _bskt, "owner didnt set");
+        require(totalETHswapped <= amountAfterFee,"totalETHswapped > amountAfterFee");
 
-        if (totalETHswapped > amountAfterFee) {
-            revert ExcessiveSwapAmount();
-        }
+        // if (totalETHswapped > amountAfterFee) {
+        //     revert ExcessiveSwapAmount();
+        // }
 
         if (totalETHswapped < amountAfterFee) {
             (bool success,) = payable(msg.sender).call{value: amountAfterFee - totalETHswapped}("");
             if (!success) revert TransferFailed();
         }
 
-        // emit BSKTCreated(
-        //     input.name,
-        //     input.symbol,
-        //     _bskt,
-        //     _bsktPair,
-        //     msg.sender,
-        //     amountAfterFee,
-        //     input.buffer,
-        //     input.id,
-        //     // input.description,
-        //     creationFeeAmount
-        // );
+        emit BSKTCreated(
+            // input.name,
+            // input.symbol,
+            _bskt,
+            _bsktPair,
+            msg.sender,
+            amountAfterFee,
+            input.slippage,
+            input.id,
+            input.description,
+            amountAfterFee
+        );
     }
 
     function _validateAndChargeCreationFee(BSKTInput calldata input) private returns (uint256 amountAfterFee) {
         
+         
         if (msg.value < minBSKTCreationAmount) {
             revert InsufficientBSKTCreationAmount(msg.value, minBSKTCreationAmount);
         }
-
-        if (input.buffer == 0 || input.buffer >= 5000) {
-            revert InvalidBuffer(input.buffer, 1, 4999);
+         
+        if (input.slippage == 0 || input.slippage >= 5000) {
+            revert InvalidBuffer(input.slippage, 1, 4999);
         }
 
+         
         if (input.deadline <= block.timestamp) {
             revert DeadlineInPast(input.deadline);
         }
 
+         
         if (bytes(input.name).length == 0) {
             revert EmptyStringParameter("name");
         }
 
+         
         if (bytes(input.symbol).length == 0) {
             revert EmptyStringParameter("symbol");
         }
 
+         
         if (bytes(input.tokenURI).length == 0) {
             revert EmptyStringParameter("tokenURI");
         }
 
+         
         if (bytes(input.id).length == 0) {
             revert EmptyStringParameter("id");
         }
 
+         
         if (input.tokens.length != input.weights.length || input.tokens.length == 0 || input.weights.length == 0) {
             revert InvalidTokensAndWeights();
         }
 
         uint256 creationFeeAmount = platformFeeConfig.bsktCreationFee > 0 ? (msg.value * platformFeeConfig.bsktCreationFee) / PERCENT_PRECISION: 0;
-        console.log("creationFeeAmount: ", creationFeeAmount);
-        
+         
         if (creationFeeAmount > msg.value) {
             revert InvalidFee();
         }
 
+         
         if (creationFeeAmount > 0) {
-
             (bool success,) = payable(platformFeeConfig.feeCollector).call{value: creationFeeAmount}("");
             
             require(success, "Failed to deduct BSKT Creation Fee");
             emit BSKTCreationFeeDeducted(creationFeeAmount,platformFeeConfig.bsktCreationFee,platformFeeConfig.feeCollector);
         }
 
+         
         amountAfterFee = msg.value - creationFeeAmount;
     }
 
 
     function _initializeBSKTWithPair(BSKTInput calldata input) internal returns (address _bts, address _btsPair) {
+        
+        
         // Deploy BTS Pair
         BeaconProxy btsPair = new BeaconProxy(
             bsktPairImplementation,
@@ -234,6 +279,9 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
             )
         );
         _btsPair = address(btsPair);
+
+        
+        // Deploy BTS Pair
 
         // Prepare BasketParams struct for IBTS.initialize()
         IBSKT.BasketParams memory params = IBSKT.BasketParams({
@@ -258,6 +306,7 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
             )
         );
         _bts = address(bts);
+
     }
 
     function _swapETHForTokens(address _bsktPair, BSKTInput calldata input,uint256 amountAfterFee) internal returns (uint256 totalETHswapped, uint256[] memory amounts) {
@@ -267,12 +316,19 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
         
         totalETHswapped = 0;
 
-        for (uint256 i = 0; i < tokensLength; ) {
+        for (uint256 i = 0; i < tokensLength;) {
             
             uint256 _amountInMin = (i == tokensLength - 1) ? amountAfterFee - totalETHswapped : (amountAfterFee * input.weights[i]) / PERCENT_PRECISION;
 
+            console.log("_amountInMin: ",_amountInMin);
+
             address[] memory path = getPath(weth, input.tokens[i]);
-            uint256 _amountOutMin = (getAmountsOut(_amountInMin, path) * (PERCENT_PRECISION - input.buffer)) / PERCENT_PRECISION;
+
+             console.log("getAmountsOut: ",getAmountsOut(_amountInMin, path));
+             console.log("PERCENT_PRECISION - input.slippage: ",PERCENT_PRECISION - input.slippage);
+            
+            uint256 _amountOutMin = (getAmountsOut(_amountInMin, path) * (PERCENT_PRECISION - input.slippage)) / PERCENT_PRECISION;
+             console.log("_amountOutMin: ",_amountOutMin);
 
             uint256 balanceBefore = IERC20(input.tokens[i]).balanceOf(_bsktPair);
 
@@ -288,6 +344,9 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
 
             unchecked { ++i; }
         }
+
+        require(totalETHswapped > 0, "totalETHswapped is zero ");
+        require(amounts.length > 0, "amounts length is  zero ");
 
         return (totalETHswapped, amounts);
     }
@@ -400,8 +459,10 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
         path[1] = _tokenB;
         return path;
     }
+    // ["0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0x0fc4580f70C517B148a141f3721C5138f74401b1"]
 
-    event BSKTCreated(string name, string symbol, address bskt, address bsktPair, address indexed creator, uint256 amount, uint256 _buffer, string _id, string description, uint256 feeAmount);
+
+    event BSKTCreated( address bskt, address bsktPair, address indexed creator, uint256 amount, uint256 _buffer, string _id, string description, uint256 feeAmount);
     event AlvaUpdated(address alva);
     event MinAlvaPercentageUpdated(uint256 percent);
     event BSKTImplementationUpdated(address indexed bsktImplementation);

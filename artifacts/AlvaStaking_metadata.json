@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.28+commit.7893614a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -16,7 +16,7 @@
 					{
 						"indexed": true,
 						"internalType": "uint256",
-						"name": "_stakeId",
+						"name": "lockId",
 						"type": "uint256"
 					},
 					{
@@ -129,25 +129,6 @@
 				"inputs": [
 					{
 						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "rewardAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "RewardsCorrected",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
 						"internalType": "bytes32",
 						"name": "role",
 						"type": "bytes32"
@@ -224,7 +205,7 @@
 					{
 						"indexed": true,
 						"internalType": "uint256",
-						"name": "_stakeId",
+						"name": "lockId",
 						"type": "uint256"
 					},
 					{
@@ -249,7 +230,7 @@
 					{
 						"indexed": true,
 						"internalType": "uint256",
-						"name": "_stakeId",
+						"name": "lockId",
 						"type": "uint256"
 					},
 					{
@@ -305,7 +286,7 @@
 					{
 						"indexed": true,
 						"internalType": "uint256",
-						"name": "_stakeId",
+						"name": "lockId",
 						"type": "uint256"
 					},
 					{
@@ -320,12 +301,64 @@
 			},
 			{
 				"inputs": [],
+				"name": "ADMIN_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "ALVA",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "DEFAULT_ADMIN_ROLE",
 				"outputs": [
 					{
 						"internalType": "bytes32",
 						"name": "",
 						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "PAUSER_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "PERCENTAGE_FACTOR",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -352,9 +385,41 @@
 			},
 			{
 				"inputs": [],
-				"name": "claimRewards",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"name": "RATIO_FACTOR",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "REWARDS_ALLOCATOR_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "REWARD_PERIOD",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -365,7 +430,7 @@
 						"type": "address"
 					}
 				],
-				"name": "claimedRewardId",
+				"name": "accountToForeverId",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -374,6 +439,75 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "accountToIdFinalized",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "accountToLockIds",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "accountTocalculatedRewards",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "claimRewards",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -393,7 +527,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_stakeId",
+						"name": "lockId",
 						"type": "uint256"
 					},
 					{
@@ -406,7 +540,7 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "rewardAmount",
+						"name": "pendingCurrent",
 						"type": "uint256"
 					},
 					{
@@ -417,6 +551,19 @@
 					{
 						"internalType": "uint256",
 						"name": "incrementedAmount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "currentIdLock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -453,30 +600,11 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "foreverStakeId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "account",
 						"type": "address"
 					}
 				],
-				"name": "getActiveLockId",
+				"name": "getActiveTimeBaseLock",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -491,7 +619,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_stakeId",
+						"name": "lockId",
 						"type": "uint256"
 					},
 					{
@@ -528,17 +656,17 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "poolToAmountLocked",
+						"name": "",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "poolToNewAmount",
+						"name": "",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "poolToExpiredAmount",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -745,6 +873,80 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "lockIdToLockData",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "pool",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isForever",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "duration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "votingPower",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rewardsCurrent",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "openingRewardId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "closingRewardId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalIncremented",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "minimumRewardAmount",
 				"outputs": [
@@ -772,6 +974,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "pause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "paused",
 				"outputs": [
 					{
@@ -791,7 +1000,7 @@
 						"type": "string"
 					}
 				],
-				"name": "poolInfo",
+				"name": "poolToPoolData",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -894,7 +1103,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "rewardEligibleIds",
+				"name": "rewardEligibleLocks",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -913,7 +1122,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "rewardInfo",
+				"name": "rewardIdToRewardData",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -956,100 +1165,13 @@
 					},
 					{
 						"internalType": "string",
-						"name": "_poolName",
+						"name": "pool",
 						"type": "string"
 					}
 				],
 				"name": "stake",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "stakeId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "stakeInfo",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "pool",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "isForever",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "isActive",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint256",
-						"name": "duration",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "startTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "endTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "votingPower",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "rewardsCurrent",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "openingRewardId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "closingRewardId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "totalIncremented",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -1102,6 +1224,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "unpause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -1182,38 +1311,8 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "userReward",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "userStakeIds",
+				"inputs": [],
+				"name": "vaultWithdrawalPercentage",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -1226,12 +1325,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "vaultWithdrawalPercentage",
+				"name": "veALVA",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "contract IERC20",
 						"name": "",
-						"type": "uint256"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -1258,6 +1357,7 @@
 			}
 		],
 		"devdoc": {
+			"details": "Uses OpenZeppelin's upgradeable libraries for role and pause functionalities.",
 			"events": {
 				"Initialized(uint8)": {
 					"details": "Triggered when the contract has been initialized or reinitialized."
@@ -1280,8 +1380,76 @@
 			},
 			"kind": "dev",
 			"methods": {
+				"compoundRewards(bool)": {
+					"details": "Handles both forever and time-based locks. Rewards are added to the locked amount.",
+					"params": {
+						"isForever": "A boolean indicating whether the lock is a forever lock."
+					}
+				},
+				"countRewards(uint256,uint256)": {
+					"params": {
+						"lockId": "The ID of the lock for which rewards are being calculated."
+					},
+					"returns": {
+						"incrementedAmount": "The incremented amount applicable for rewards calculation.",
+						"openingRewardId": "The next reward ID that needs processing for this lock.",
+						"pendingCurrent": "The total pending rewards for the lock."
+					}
+				},
+				"getActiveTimeBaseLock(address)": {
+					"params": {
+						"account": "The address of the account."
+					},
+					"returns": {
+						"timebaseId": "The ID of the active time-based lock."
+					}
+				},
+				"getIncrementedAmount(uint256,uint256)": {
+					"params": {
+						"lockId": "The ID of the lock.",
+						"rewardId": "The ID of the reward period."
+					},
+					"returns": {
+						"amount": "The incremented amount for the lock during the reward period."
+					}
+				},
+				"getPoolDataByRewardId(uint256,string)": {
+					"params": {
+						"pool": "The name of the pool.",
+						"rewardId": "The ID of the reward period."
+					},
+					"returns": {
+						"_0": "(amountLocked, newAmount, expiredAmount) The locked, new, and expired amounts for the pool."
+					}
+				},
+				"getRewardsPending(address)": {
+					"params": {
+						"account": "The address of the account."
+					},
+					"returns": {
+						"totalReward": "The total pending rewards for the account."
+					}
+				},
 				"getRoleAdmin(bytes32)": {
 					"details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
+				},
+				"getTotalLocks(address)": {
+					"params": {
+						"account": "The address of user."
+					},
+					"returns": {
+						"userLocksTotal": "The total number of locks of an account.",
+						"userRewardEligibleLocks": "The number of locks eligible for reward of an account."
+					}
+				},
+				"getveAlvaAmount(uint256,string)": {
+					"params": {
+						"amount": "The amount of ALVA tokens staked.",
+						"pool": "The name of the pool."
+					},
+					"returns": {
+						"_0": "The calculated veALVA voting power."
+					}
 				},
 				"grantRole(bytes32,address)": {
 					"details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event."
@@ -1289,8 +1457,38 @@
 				"hasRole(bytes32,address)": {
 					"details": "Returns `true` if `account` has been granted `role`."
 				},
+				"increaseAmount(uint256,bool)": {
+					"details": "Handles both forever and time-based locks. Also finalizes pending rewards before updating the lock.",
+					"params": {
+						"amount": "The additional amount to be staked.",
+						"isForever": "A boolean indicating whether the lock is a forever lock."
+					}
+				},
+				"initialize(address,address,uint256,uint256,string[],uint256[],uint256[],uint256[],uint256[])": {
+					"params": {
+						"_alva": "Address of the ALVA token contract.",
+						"_decayInterval": "Interval for decaying veALVA power.",
+						"_pools": "List of pool names.",
+						"_startTime": "Start time for rewards distribution.",
+						"_veAlva": "Address of the veALVA token contract.",
+						"duration": "Array of durations (in seconds) for each pool.",
+						"rewardPeriods": "Array of reward periods for each pool.",
+						"rewards": "Array of reward percentages for each pool.",
+						"veTokenRatio": "Array of veALVA ratios for each pool."
+					}
+				},
+				"pause()": {
+					"details": "This function can only be called by an account with the PAUSER_ROLE."
+				},
 				"paused()": {
 					"details": "Returns true if the contract is paused, and false otherwise."
+				},
+				"renewStaking(uint256,string)": {
+					"details": "The new lock must have a duration greater than or equal to the existing lock's duration.",
+					"params": {
+						"amount": "The amount of ALVA tokens to stake in the new lock.",
+						"pool": "The name of the pool where the lock will be renewed."
+					}
 				},
 				"renounceRole(bytes32,address)": {
 					"details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `account`. May emit a {RoleRevoked} event."
@@ -1298,23 +1496,256 @@
 				"revokeRole(bytes32,address)": {
 					"details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event."
 				},
+				"rewardPeriodCount()": {
+					"returns": {
+						"_0": "The current reward period ID."
+					}
+				},
+				"stake(uint256,string)": {
+					"details": "Staking requires the pool to be active and the amount to meet the minimum staking requirement.",
+					"params": {
+						"amount": "The amount of ALVA tokens to stake.",
+						"pool": "The name of the pool where the tokens will be staked."
+					}
+				},
 				"supportsInterface(bytes4)": {
 					"details": "See {IERC165-supportsInterface}."
+				},
+				"topUpRewards()": {
+					"details": "Can only be called by accounts with the REWARDS_ALLOCATOR_ROLE."
+				},
+				"unpause()": {
+					"details": "This function can only be called by an account with the PAUSER_ROLE."
+				},
+				"unstake()": {
+					"details": "Only applicable to time-based locks. Forever locks cannot be unstaked."
+				},
+				"updateDecayInterval(uint256)": {
+					"details": "This function can only be called by an account with the ADMIN_ROLE.",
+					"params": {
+						"newInterval": "The new decay interval in seconds."
+					}
+				},
+				"updateMinStakingAmount(uint256)": {
+					"details": "This function can only be called by an account with the ADMIN_ROLE.",
+					"params": {
+						"amount": "The new minimum staking amount."
+					}
+				},
+				"updateMinimumRewardAmount(uint256)": {
+					"details": "This function can only be called by an account with the ADMIN_ROLE.",
+					"params": {
+						"amount": "The new minimum reward amount to be set."
+					}
+				},
+				"updatePoolStatus(string,bool)": {
+					"details": "This function can only be called by an account with the ADMIN_ROLE.",
+					"params": {
+						"pool": "The name of the pool to update.",
+						"status": "The new status of the pool (true = active, false = inactive)."
+					}
+				},
+				"updateWithdrawalPercentage(uint256)": {
+					"details": "This function can only be called by an account with the ADMIN_ROLE.",
+					"params": {
+						"amount": "The new withdrawal percentage, scaled by the PERCENTAGE_FACTOR for precision."
+					}
+				},
+				"veAlvaBalance(address)": {
+					"params": {
+						"account": "The address of the user."
+					},
+					"returns": {
+						"_0": "balance The user's current veALVA balance."
+					}
 				}
 			},
+			"title": "AlvaStaking",
 			"version": 1
 		},
 		"userdoc": {
+			"events": {
+				"Compounded(uint256,uint256,uint256,uint256)": {
+					"notice": "Emitted when rewards are compounded."
+				},
+				"LockRenewed(uint256,uint256)": {
+					"notice": "Emitted when an active lock is renewed."
+				},
+				"RewardsAdded(uint256,uint256)": {
+					"notice": "Emitted when new rewards are added to the system."
+				},
+				"RewardsClaimed(address,uint256)": {
+					"notice": "Emitted when a user claims their rewards."
+				},
+				"StakedAmountIncreased(uint256,uint256,uint256)": {
+					"notice": "Emitted when the staked amount is increased for an existing lock."
+				},
+				"TokensStaked(uint256,address,uint256,string,uint256)": {
+					"notice": "--- Events ---Emitted when tokens are staked in a pool."
+				},
+				"Withdrawn(address,uint256,uint256)": {
+					"notice": "Emitted when a user withdraws their tokens after lock expiry."
+				}
+			},
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"ADMIN_ROLE()": {
+					"notice": "Role that allows admin-level operations."
+				},
+				"ALVA()": {
+					"notice": "Interface of the ALVA token contract."
+				},
+				"PAUSER_ROLE()": {
+					"notice": "Role that allows pausing/unpausing the contract."
+				},
+				"PERCENTAGE_FACTOR()": {
+					"notice": "Percentage precision factor for pool rewards (1e7 scale)."
+				},
+				"Pools(uint256)": {
+					"notice": "List of all pools. Always include \"FOREVER\" at the beginning."
+				},
+				"RATIO_FACTOR()": {
+					"notice": "Ratio factor for calculating veALVA from staked ALVA (1e8 scale)."
+				},
+				"REWARDS_ALLOCATOR_ROLE()": {
+					"notice": "Role that allows adding rewards to the contract."
+				},
+				"REWARD_PERIOD()": {
+					"notice": "Reward period duration in seconds"
+				},
+				"accountToForeverId(address)": {
+					"notice": "Maps user addresses to their forever lock ID."
+				},
+				"accountToIdFinalized(address)": {
+					"notice": "Maps user addresses to their finalized lock ID"
+				},
+				"accountToLockIds(address,uint256)": {
+					"notice": "--- Mappings ---Maps user addresses to their list of lock IDs."
+				},
+				"accountTocalculatedRewards(address)": {
+					"notice": "Maps user addresses to their pending reward amounts."
+				},
+				"claimRewards()": {
+					"notice": "Allows users to claim their accumulated rewards."
+				},
+				"compoundRewards(bool)": {
+					"notice": "Allows users to compound their rewards into an existing lock."
+				},
+				"countRewards(uint256,uint256)": {
+					"notice": "Calculates the rewards for a specific lock based on the current reward state."
+				},
+				"currentIdLock()": {
+					"notice": "Tracks the current lock ID (incremented for each new lock)."
+				},
+				"currentIdRewards()": {
+					"notice": "Tracks the current reward ID (incremented for each reward period)."
+				},
+				"decayInterval()": {
+					"notice": "Time interval for decaying veALVA voting power."
+				},
+				"getActiveTimeBaseLock(address)": {
+					"notice": "Retrieves the active time-based lock ID for a specific account."
+				},
+				"getIncrementedAmount(uint256,uint256)": {
+					"notice": "Retrieves the incremented amount for a specific lock and reward ID."
+				},
+				"getPoolDataByRewardId(uint256,string)": {
+					"notice": "Retrieves pool data for a specific reward period."
+				},
+				"getRewardsPending(address)": {
+					"notice": "Retrieves the total pending rewards for a specific account."
+				},
+				"getTotalLocks(address)": {
+					"notice": "Retrieves number of locks total and reward eligible locks of Account."
+				},
+				"getveAlvaAmount(uint256,string)": {
+					"notice": "Calculates the veALVA voting power for a given amount in a specific pool."
+				},
+				"increaseAmount(uint256,bool)": {
+					"notice": "Allows users to increase the staked amount."
+				},
+				"initialize(address,address,uint256,uint256,string[],uint256[],uint256[],uint256[],uint256[])": {
+					"notice": "Initializes the staking contract with required parameters."
+				},
+				"lockIdToLockData(uint256)": {
+					"notice": "Maps lock IDs to their corresponding lock data."
+				},
+				"minimumRewardAmount()": {
+					"notice": "Minimum reward amount required for allocating rewards."
+				},
+				"minimumStakingAmount()": {
+					"notice": "Minimum staking amount required for participation."
+				},
+				"pause()": {
+					"notice": "Pauses all contract functionality."
+				},
+				"poolToPoolData(string)": {
+					"notice": "Maps pool names to their corresponding data."
+				},
+				"renewStaking(uint256,string)": {
+					"notice": "Allows users to renew their current time-based lock into a new lock with updated parameters."
+				},
+				"rewardEligibleLocks(address,uint256)": {
+					"notice": "Maps user addresses to their list of lock IDs that are eligible for rewards."
+				},
+				"rewardIdToRewardData(uint256)": {
+					"notice": "Maps reward IDs to their corresponding reward data."
+				},
+				"rewardPeriodCount()": {
+					"notice": "Calculates the current reward period ID based on the contract's start time."
+				},
+				"stake(uint256,string)": {
+					"notice": "Allows users to stake ALVA tokens into a specified pool."
+				},
+				"startTime()": {
+					"notice": "Start time for reward distribution."
+				},
+				"topUpRewards()": {
+					"notice": "Allows authorized accounts to add rewards for distribution."
+				},
+				"unallocatedRewards()": {
+					"notice": "Total unallocated rewards available for distribution."
+				},
+				"unpause()": {
+					"notice": "Unpauses all contract functionalities."
+				},
+				"unstake()": {
+					"notice": "Allows users to unstake their tokens after the lock has expired."
+				},
+				"updateDecayInterval(uint256)": {
+					"notice": "Updates the decay interval for veALVA voting power."
+				},
+				"updateMinStakingAmount(uint256)": {
+					"notice": "Updates the minimum staking amount for all pools."
+				},
+				"updateMinimumRewardAmount(uint256)": {
+					"notice": "Updates the minimum reward amount required for allocating rewards."
+				},
+				"updatePoolStatus(string,bool)": {
+					"notice": "Updates the active status of a specific pool."
+				},
+				"updateWithdrawalPercentage(uint256)": {
+					"notice": "Updates the withdrawal percentage applied to the balance of reward vault for reward allocation."
+				},
+				"vaultWithdrawalPercentage()": {
+					"notice": "Percentage of total balance of reward vault to be allocated for reward distribution."
+				},
+				"veALVA()": {
+					"notice": "Interface of the veALVA token contract for voting power."
+				},
+				"veAlvaBalance(address)": {
+					"notice": "Retrieves the current veALVA balance of a user, accounting for decay."
+				}
+			},
+			"notice": "This contract enables staking of ALVA tokens and generates rewards in veALVA.         It includes time-based and forever locks, reward distribution, and role-based access control.",
 			"version": 1
 		}
 	},
 	"settings": {
 		"compilationTarget": {
-			"testStaking.sol": "AlvaStaking"
+			"testStaking_flattened.sol": "AlvaStaking"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1414,12 +1845,20 @@
 				"dweb:/ipfs/QmXFkNxMc3AAGzhs2wUEZyErWQjsvoTGyYjuU5oZkFki5Z"
 			]
 		},
-		"testStaking.sol": {
-			"keccak256": "0xbcd3bb477aa1f8a2cb374541e4a042727c6ed6371380bbcbea17b6a73ab2e876",
+		"contracts/interfaces/IERC20.sol": {
+			"keccak256": "0x8bc93fd43424907389fc5a562f9ff329b67b2701c99c036a655ae14503880bc9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b2b950b31386c82dbe27f7a3c8b7cdd3efb0d6f43357ff3202e00bc7984e8711",
-				"dweb:/ipfs/QmcaT49sK518h8n7UvevCceiemeejPUQ6T17n6umMVeGzR"
+				"bzz-raw://9bd7d0172b4a5d639fc48a7a159880510e30073ff03d782a238d4073b5c19bf8",
+				"dweb:/ipfs/QmQ2zryoqxdUxSjCtrwu6bkY5Bwo86fZJY3EEiP3TU85mB"
+			]
+		},
+		"testStaking_flattened.sol": {
+			"keccak256": "0xbce5cd201ac3aeb943d250b6aeb9d915522df7418269788a21a4db03cb95e639",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1532ee95b2f857d32d6bd00093fc3c4c252331f183c36b923aaaa385115c0f3f",
+				"dweb:/ipfs/QmYpe87s5PN9BQFGU94a4haVUxhUg9fXGFpw6MDAKm6ecn"
 			]
 		}
 	},

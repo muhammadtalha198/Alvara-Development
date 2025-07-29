@@ -51,7 +51,7 @@ interface IFactory {
         address[] tokens;
         uint256[] weights;
         string tokenURI;
-        uint256 buffer;
+        uint256 slippage;
         string id;
         string description;
         uint256 deadline;

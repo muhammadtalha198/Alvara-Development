@@ -2,6 +2,8 @@
 pragma solidity ^0.8.26;
 
 interface IBSKTPair {
+
+    function getOwner() external view returns (address);
     function initialize(address factoryAddress, string memory name, address[] calldata tokens) external;
 
     function mint(address _to, uint256[] calldata amounts) external returns (uint256 liquidity);

@@ -161,11 +161,8 @@ contract BasketTokenStandard is
         return (amountAfterFee, wethAddress, routerAddress, tokensLength, amounts);
     }
 
-    function contribute(uint256 _buffer, uint256 _deadline)
-        external
-        payable
-        nonReentrant
-    {
+    function contribute(uint256 _buffer, uint256 _deadline) external payable nonReentrant {
+
         _validateContributeInputs(_buffer, _deadline);
 
         (
@@ -304,11 +301,8 @@ contract BasketTokenStandard is
         return totalETH;
     }
 
-    function withdrawETH(
-        uint256 _liquidity,
-        uint256 _buffer,
-        uint256 _deadline
-    ) external nonReentrant validateMinLpWithdrawal(_liquidity) {
+    function withdrawETH(uint256 _liquidity,uint256 _buffer, uint256 _deadline) external nonReentrant validateMinLpWithdrawal(_liquidity) {
+       
         if (_buffer == 0 || _buffer >= 5000) {
             revert InvalidBuffer(_buffer, 1, 4999);
         }
@@ -437,11 +431,9 @@ contract BasketTokenStandard is
         address to,
         uint256 tokenId,
         bytes memory data
-    )
-        public
-        override(ERC721Upgradeable, IERC721Upgradeable)
-        onlyWhitelistedContract(to)
-    {
+    ) public
+         override(ERC721Upgradeable, IERC721Upgradeable)
+        onlyWhitelistedContract(to){
         super.safeTransferFrom(from, to, tokenId, data);
     }
 

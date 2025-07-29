@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
-
+import "hardhat/console.sol";
 
 interface IERC20 {
     function totalSupply() external view returns (uint256);
@@ -46,7 +46,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
 
     uint private constant RATIO_FACTOR = 10 ** 8;
     uint private constant PERCENTAGE_FACTOR = 10 ** 7;
-    uint private constant REWARD_PERIOD = 3 minutes;
+    uint private constant REWARD_PERIOD = 5 minutes;
 
     bytes32 private constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 private constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
@@ -124,8 +124,9 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
     // [4000000,6000000]
     // [200000000,150000000]
     // [0,14400];  
+   
     // [0,1500];   cycles 
-    // [999999,8]; REWARD_PERIOD = 5 minutes.
+    // [999999,8]; REWARD_PERIOD = 3 minutes.
  
 
     // [999999,48]; REWARD_PERIOD = 5 minutes.
@@ -150,7 +151,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
         require(_alva != address(0), "Invalid ALVA token address");
         require(_veAlva != address(0), "Invalid veALVA token address");
 
-        ALVA = IERC20(_alva);
+        ALVA = IERC20(_alva); 
         veALVA = IERC20(_veAlva);
         decayInterval = _decayInterval;
         startTime = _startTime;
@@ -221,6 +222,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
 
             foreverStakeId[msg.sender] = stakeId;
             stakeInfo[stakeId].isForever = true;
+            ALVA.burnFrom(msg.sender, amountTotal);
         }
 
         stakeInfo[stakeId].pool = _poolName;
@@ -237,6 +239,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
 
         emit TokensStaked(stakeId, msg.sender, amountTotal, _poolName, votingPowerTotal);
     }
+    // 0xdD870fA1b7C4700F2BD7f44238821C26f7392148
 
     function claimRewards() public whenNotPaused {
         
@@ -308,7 +311,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
         incrementedAmount = _stakeData.rewardIdToIncrementedAmount[openingRewardId];
 
         for (; endingId > openingRewardId && closingId > openingRewardId; openingRewardId++) {
-           
+
             if (rewardInfo[openingRewardId].timestamp == 0) break;
             rewardAmount += _calculateRewards(openingRewardId, _stakeId, incrementedAmount);
 
@@ -332,7 +335,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
     
 
     
-    function topUpRewards() public onlyRole(REWARDS_ALLOCATOR_ROLE) whenNotPaused {
+    function topUpRewards() public /*onlyRole(REWARDS_ALLOCATOR_ROLE)*/ whenNotPaused {
        
         uint amount = (ALVA.balanceOf(msg.sender) * vaultWithdrawalPercentage) / PERCENTAGE_FACTOR;
 
@@ -379,6 +382,7 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
         if (isForever) {
             _stakeId = foreverStakeId[msg.sender];
             require(_stakeId != 0, "No active forever lock exists for the user");
+            ALVA.burnFrom(msg.sender, amount);
 
         } else {
            
@@ -640,6 +644,14 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
             }
         }
     }
+
+    function resetRewardID() external{
+        currentIdRewards = 0;
+    }
+    
+    function resetStarttime(uint256 time) external{
+        startTime = time;
+    }
 }
 
 
@@ -694,5 +706,5 @@ contract AlvaStaking is Initializable, PausableUpgradeable, AccessControlUpgrade
 
     //     if (rewardAmount > 0) {
     //         emit RewardsCorrected(account, rewardAmount);
-    //     }
+    //     }0x4aB10750CC2A1Ce3a92445d322b94B33831e57De
     // }

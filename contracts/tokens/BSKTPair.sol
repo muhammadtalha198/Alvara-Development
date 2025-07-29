@@ -83,6 +83,8 @@ contract BasketTokenStandardPair is ERC20Upgradeable, OwnableUpgradeable, IBSKTP
             address[] memory path = factoryInstance.getPath(tokens[i], wethAddress);
             totalETH += factoryInstance.getAmountsOut(amounts[i], path);
         }
+
+        require (totalETH > 0, "totalETH zero in mint");
         
         liquidity = totalSupply() == 0 ? 1000 ether : calculateShareLP(totalETH);
         _mint(_to, liquidity);
@@ -117,6 +119,8 @@ contract BasketTokenStandardPair is ERC20Upgradeable, OwnableUpgradeable, IBSKTP
         (uint256 months, uint256 supply, uint256 feeAmount) = calFee();
         
         if (months == 0) return;
+
+        require(owner() != address(0), "Owner is  zero adrees sin bsktpair distMgmtFee");
         if (feeAmount > 0) _mint(owner(), feeAmount);
         
         lastAccruedAt += months * 30 days;
@@ -207,5 +211,9 @@ contract BasketTokenStandardPair is ERC20Upgradeable, OwnableUpgradeable, IBSKTP
                 totalReservedETH += factoryInstance.getAmountsOut(reserve, path);
             }
         }
+    }
+
+    function getOwner() external view returns (address) {
+        return owner();
     }
 }
