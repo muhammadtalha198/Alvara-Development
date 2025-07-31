@@ -204,62 +204,78 @@ contract BasketTokenStandard is
         emit ContributedToBSKT(address(this), msg.sender, msg.value);
     }
 
-    function withdraw(
-        uint256 _liquidity,
-        uint256 _slippage,
-        uint256 _deadline
-    ) private nonReentrant validateMinLpWithdrawal(_liquidity) {
+    function withdraw(uint256 _liquidity,uint256 _slippage,uint256 _deadline) private nonReentrant validateMinLpWithdrawal(_liquidity) {
+        
         if (_slippage == 0 || _slippage >= 5000) {
             revert InvalidBuffer(_slippage, 1, 4999);
         }
 
         IFactory factoryInstance = _factory(); 
-        (, , uint256 withdrawalFee, address feeCollector) = factoryInstance
-            .getPlatformFeeConfig();
+        (, , uint256 withdrawalFee, address feeCollector) = factoryInstance.getPlatformFeeConfig();
 
         uint256 feeLiquidity = 0;
 
         if (withdrawalFee > 0) {
+            
             feeLiquidity = (_liquidity * withdrawalFee) / PERCENT_PRECISION;
 
-            uint256[] memory feeAmounts = _withdraw(
-                feeLiquidity,
-                address(this)
-            );
-            uint256 ethAmount = _tokensToEth(
-                factoryInstance,
-                feeAmounts,
-                payable(feeCollector),
-                _slippage,
-                _deadline
-            );
-            emit PlatformFeeDeducted(
-                ethAmount,
-                withdrawalFee,
-                feeCollector,
-                "withdrawTokens"
-            );
+            uint256[] memory feeAmounts = _withdraw(feeLiquidity,address(this));
+            
+            uint256 ethAmount = _tokensToEth(factoryInstance,feeAmounts,payable(feeCollector),_slippage,_deadline);
+            
+            emit PlatformFeeDeducted(ethAmount,withdrawalFee,feeCollector,"withdrawTokens");
         }
 
         uint256 userLiquidity = _liquidity - feeLiquidity;
 
         uint256[] memory userAmounts = _withdraw(userLiquidity, msg.sender);
 
-        emit WithdrawnFromBSKT(
-            address(this),
-            msg.sender,
-            _tokenDetails.tokens,
-            userAmounts
-        );
+        emit WithdrawnFromBSKT(address(this),msg.sender,_tokenDetails.tokens,userAmounts);
     }
 
-    function _tokensToEth(
-        IFactory factoryInstance,
-        uint256[] memory _amounts,
-        address payable _receiver,
-        uint256 _slippage,
-        uint256 _deadline
-    ) private returns (uint256 totalETH) {
+
+
+    function withdrawETH(uint256 _liquidity,uint256 _slippage, uint256 _deadline) external nonReentrant validateMinLpWithdrawal(_liquidity) {
+       
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
+        }
+
+        IFactory factoryInstance = _factory(); 
+        (, , uint256 withdrawalFee, address feeCollector) = factoryInstance.getPlatformFeeConfig();
+
+        uint256 feeLiquidity = 0;
+        uint256 userLiquidity = _liquidity;
+        uint256 feeWethAmount = 0;
+
+        if (withdrawalFee > 0) {
+            feeLiquidity = (_liquidity * withdrawalFee) / PERCENT_PRECISION;
+            userLiquidity = _liquidity - feeLiquidity;
+
+            uint256[] memory feeAmounts = _withdraw(feeLiquidity,address(this));
+
+            feeWethAmount = _tokensToEth(factoryInstance,feeAmounts,payable(feeCollector),_slippage,_deadline);
+            
+            emit PlatformFeeDeducted(feeWethAmount,withdrawalFee,feeCollector,"withdrawETH");
+        }
+
+        uint256[] memory userAmounts = _withdraw(userLiquidity, address(this));
+
+        uint256 ethAmount = _tokensToEth(factoryInstance,userAmounts,payable(msg.sender),_slippage,_deadline);
+
+        emit WithdrawnETHFromBSKT(address(this), msg.sender, ethAmount);
+    }
+
+    function _withdraw(uint256 _liquidity, address _to) private returns (uint256[] memory amounts){
+       
+        if (_liquidity == 0) revert InvalidWithdrawalAmount();
+
+        IERC20Upgradeable(bsktPair).transferFrom(msg.sender,bsktPair,_liquidity);
+        amounts = IBSKTPair(bsktPair).burn(_to);
+    }
+
+    function _tokensToEth(IFactory factoryInstance,uint256[] memory _amounts,address payable _receiver,uint256 _slippage,uint256 _deadline) private returns (uint256 totalETH) {
+        
         if (_deadline <= block.timestamp) revert DeadlineInPast(_deadline);
 
         address wethAddress = factoryInstance.weth(); 
@@ -267,7 +283,9 @@ contract BasketTokenStandard is
         uint256 totalWETH = 0;
 
         for (uint256 i = 0; i < _amounts.length; ) {
+            
             if (_amounts[i] > 0) {
+
                 if (_tokenDetails.tokens[i] == wethAddress) {
                     totalWETH += _amounts[i];
                 } else {
@@ -299,57 +317,6 @@ contract BasketTokenStandard is
         }
 
         return totalETH;
-    }
-
-    function withdrawETH(uint256 _liquidity,uint256 _slippage, uint256 _deadline) external nonReentrant validateMinLpWithdrawal(_liquidity) {
-       
-        if (_slippage == 0 || _slippage >= 5000) {
-            revert InvalidBuffer(_slippage, 1, 4999);
-        }
-
-        IFactory factoryInstance = _factory(); 
-        (, , uint256 withdrawalFee, address feeCollector) = factoryInstance
-            .getPlatformFeeConfig();
-
-        uint256 feeLiquidity = 0;
-        uint256 userLiquidity = _liquidity;
-        uint256 feeWethAmount = 0;
-
-        if (withdrawalFee > 0) {
-            feeLiquidity = (_liquidity * withdrawalFee) / PERCENT_PRECISION;
-            userLiquidity = _liquidity - feeLiquidity;
-
-            uint256[] memory feeAmounts = _withdraw(
-                feeLiquidity,
-                address(this)
-            );
-
-            feeWethAmount = _tokensToEth(
-                factoryInstance,
-                feeAmounts,
-                payable(feeCollector),
-                _slippage,
-                _deadline
-            );
-            emit PlatformFeeDeducted(
-                feeWethAmount,
-                withdrawalFee,
-                feeCollector,
-                "withdrawETH"
-            );
-        }
-
-        uint256[] memory userAmounts = _withdraw(userLiquidity, address(this));
-
-        uint256 ethAmount = _tokensToEth(
-            factoryInstance,
-            userAmounts,
-            payable(msg.sender),
-            _slippage,
-            _deadline
-        );
-
-        emit WithdrawnETHFromBSKT(address(this), msg.sender, ethAmount);
     }
 
     function rebalance(
@@ -503,19 +470,7 @@ contract BasketTokenStandard is
         if (_totalWeight != PERCENT_PRECISION) revert InvalidWeight();
     }
 
-    function _withdraw(uint256 _liquidity, address _to)
-        private
-        returns (uint256[] memory amounts)
-    {
-        if (_liquidity == 0) revert InvalidWithdrawalAmount();
-
-        IERC20Upgradeable(bsktPair).transferFrom(
-            msg.sender,
-            bsktPair,
-            _liquidity
-        );
-        amounts = IBSKTPair(bsktPair).burn(_to);
-    }
+    
 
     function _rebalance(
         address[] memory _newTokens,

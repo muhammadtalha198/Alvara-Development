@@ -53,7 +53,6 @@
 			"calculateShareETH(uint256)": "9257fa07",
 			"calculateShareTokens(uint256)": "d410ad7d",
 			"distMgmtFee()": "b4b93c8c",
-			"getOwner()": "893d20e8",
 			"getTokenAddress(uint256)": "67ccdf38",
 			"getTokenAndUserBal(address)": "a131d436",
 			"getTokenList()": "273cbaa0",
@@ -130,19 +129,6 @@
 			"name": "distMgmtFee",
 			"outputs": [],
 			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "getOwner",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"stateMutability": "view",
 			"type": "function"
 		},
 		{

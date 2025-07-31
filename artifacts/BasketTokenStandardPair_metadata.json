@@ -392,19 +392,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getOwner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -920,11 +907,11 @@
 			]
 		},
 		"contracts/interfaces/IBSKTPair.sol": {
-			"keccak256": "0x75eb4a872cc9a98129a3b2d868f1603d6f047b69c8036d6fea3db10b44e95b1b",
+			"keccak256": "0xcbd12b809383686ec8f036be3ac05e43c165a9cadcbba92146275e41d21f8994",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b3336667ce98cdff8f253d326490c9db9398676bee7384b958f38fd93314be45",
-				"dweb:/ipfs/QmSw4uPu3waYZA9sJnZtoBF97viDF6zD46X3k8HxeHHKSg"
+				"bzz-raw://b99cbbe172514996bec5bcad3fd397a1531a94ca22a7cba9bbbde393e329f3d5",
+				"dweb:/ipfs/QmZ3MasK5N9aruGJSUQoFctQoBePaHJ5YV553E4xEscJNo"
 			]
 		},
 		"contracts/interfaces/IFactory.sol": {
@@ -936,11 +923,11 @@
 			]
 		},
 		"contracts/tokens/BSKTPair.sol": {
-			"keccak256": "0x4d21dcb88c24773c024d30aacd21744bf9f9ea20209a3f4455bce89dc244fb69",
+			"keccak256": "0x646f84bb020874c5a2557ce3e27857fe554ac9d9765de307c4ded4c469b2dcf7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://caeba0a0e5484e35ea461896f1ce189da1714028e56829f0007b8710e98909c3",
-				"dweb:/ipfs/QmU5LEJy5pQGJ9V7a9FjoU2Fs5UgT2yShEzsiC6hj8WjJs"
+				"bzz-raw://c92fb21e3555c83d75e13cb61a627a29d5cd1918a55a7b5f6dbe43bdccb59619",
+				"dweb:/ipfs/QmVutxqbyRAFjGD8rjbmmJz5NdhsDAFWM6NTgwMjVNNDTA"
 			]
 		}
 	},

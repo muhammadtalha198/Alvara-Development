@@ -70,19 +70,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getOwner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -297,11 +284,11 @@
 	},
 	"sources": {
 		"contracts/interfaces/IBSKTPair.sol": {
-			"keccak256": "0x75eb4a872cc9a98129a3b2d868f1603d6f047b69c8036d6fea3db10b44e95b1b",
+			"keccak256": "0xcbd12b809383686ec8f036be3ac05e43c165a9cadcbba92146275e41d21f8994",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b3336667ce98cdff8f253d326490c9db9398676bee7384b958f38fd93314be45",
-				"dweb:/ipfs/QmSw4uPu3waYZA9sJnZtoBF97viDF6zD46X3k8HxeHHKSg"
+				"bzz-raw://b99cbbe172514996bec5bcad3fd397a1531a94ca22a7cba9bbbde393e329f3d5",
+				"dweb:/ipfs/QmZ3MasK5N9aruGJSUQoFctQoBePaHJ5YV553E4xEscJNo"
 			]
 		}
 	},

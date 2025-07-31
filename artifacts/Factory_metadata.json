@@ -733,6 +733,50 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "checkAllRoles",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "collectionUri",
 				"outputs": [
@@ -1479,7 +1523,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/checkFactory.sol": "Factory"
+			"contracts/Factory.sol": "Factory"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -1901,12 +1945,12 @@
 				"dweb:/ipfs/QmTyotZk2J5YvWkNvB2qhXBMgRGWW2UgPqR4JPocrXSr8n"
 			]
 		},
-		"contracts/checkFactory.sol": {
-			"keccak256": "0x17f026e84b656de38d1b6efdfd0ae32dff82cd9ca63d8fb3ae5c031b09f2f067",
+		"contracts/Factory.sol": {
+			"keccak256": "0x95c6968e48a7214e678dfa3e1535ca1a79bb4a37af06926e3da96dfd86391a71",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://091575057c32b1be44d51a78a3bd9955752bd32a959d967c2c1c8108d921d36a",
-				"dweb:/ipfs/QmajHZJfEeuG7ds8NNCKZtFgpVTq8VtnSbUygtufEAPrDm"
+				"bzz-raw://a0049590806273643d108d17aa4807a4b8ce9d541ca4de4cfd451dfce7131f74",
+				"dweb:/ipfs/QmeQiujrBBD3mD3VEWShYW5pfJA19yqk68DkRixVvZz6QL"
 			]
 		},
 		"contracts/interfaces/IBSKT.sol": {
@@ -1918,11 +1962,11 @@
 			]
 		},
 		"contracts/interfaces/IBSKTPair.sol": {
-			"keccak256": "0x75eb4a872cc9a98129a3b2d868f1603d6f047b69c8036d6fea3db10b44e95b1b",
+			"keccak256": "0xcbd12b809383686ec8f036be3ac05e43c165a9cadcbba92146275e41d21f8994",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b3336667ce98cdff8f253d326490c9db9398676bee7384b958f38fd93314be45",
-				"dweb:/ipfs/QmSw4uPu3waYZA9sJnZtoBF97viDF6zD46X3k8HxeHHKSg"
+				"bzz-raw://b99cbbe172514996bec5bcad3fd397a1531a94ca22a7cba9bbbde393e329f3d5",
+				"dweb:/ipfs/QmZ3MasK5N9aruGJSUQoFctQoBePaHJ5YV553E4xEscJNo"
 			]
 		},
 		"contracts/interfaces/IERC20.sol": {
