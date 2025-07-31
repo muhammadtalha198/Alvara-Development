@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.28+commit.7893614a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -275,9 +275,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"testStaking_flattened.sol": "AccessControlUpgradeable"
+			"uniswap_flattened.sol": "AccessControlUpgradeable"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -289,12 +289,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"testStaking_flattened.sol": {
-			"keccak256": "0x10e2767c45c553709b2ecd2a19e320909d992629a1f109596d4181e08843541b",
+		"uniswap_flattened.sol": {
+			"keccak256": "0x29fadc50ffaafd6c50c43a28e975d319e5a65a405b34ce626a630261ce94b9b3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85c87c826c4acaf24f02e846d701b1812c99c3803e22231d86f9a6917a32c601",
-				"dweb:/ipfs/QmcoQdRuuzTX9n1PgdeMPJQo3kduPS9xD5fCsrYAz5gQXN"
+				"bzz-raw://07da326a0ce43c774ea9103d31052f12d2febc9c83e7369280772de5dce354e1",
+				"dweb:/ipfs/QmNeFaN7rWgHQCcNJFGuTSaVRzHrTZB3FotG2pjEtbgDbv"
 			]
 		}
 	},

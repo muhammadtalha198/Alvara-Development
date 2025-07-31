@@ -1,0 +1,78 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Helper library for emitting standardized panic codes. ```solidity contract Example {      using Panic for uint256;      // Use any of the declared internal constants      function foo() { Panic.GENERIC.panic(); }      // Alternatively      function foo() { Panic.panic(Panic.GENERIC); } } ``` Follows the list from https://github.com/ethereum/solidity/blob/v0.8.24/libsolutil/ErrorCodes.h[libsolutil]. _Available since v5.1._",
+			"kind": "dev",
+			"methods": {},
+			"stateVariables": {
+				"ARRAY_OUT_OF_BOUNDS": {
+					"details": "array out of bounds access"
+				},
+				"ASSERT": {
+					"details": "used by the assert() builtin"
+				},
+				"DIVISION_BY_ZERO": {
+					"details": "division or modulo by zero"
+				},
+				"EMPTY_ARRAY_POP": {
+					"details": "empty array pop"
+				},
+				"ENUM_CONVERSION_ERROR": {
+					"details": "enum conversion error"
+				},
+				"GENERIC": {
+					"details": "generic / unspecified error"
+				},
+				"INVALID_INTERNAL_FUNCTION": {
+					"details": "calling invalid internal function"
+				},
+				"RESOURCE_ERROR": {
+					"details": "resource error (too large allocation or too large array)"
+				},
+				"STORAGE_ENCODING_ERROR": {
+					"details": "invalid encoding in storage"
+				},
+				"UNDER_OVERFLOW": {
+					"details": "arithmetic underflow or overflow"
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"uniswap_flattened.sol": "Panic"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"uniswap_flattened.sol": {
+			"keccak256": "0xa635891eba1ed965715e5d54a1876e6d104b41368fd4d509a03825776967f2e4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c2cf8f55de0d59e568686fc10abbffa8caa56b09dddbd9e4b5bd29cbe29c73c4",
+				"dweb:/ipfs/QmaWGWWrf8xLi3VM2ccUMvSPCfVSN1S47Am8zbg3sXj2eL"
+			]
+		}
+	},
+	"version": 1
+}

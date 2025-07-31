@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.28+commit.7893614a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -37,9 +37,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/tokens/BSKTPairBeacon_flattened.sol": "IBeacon"
+			"uniswap_flattened.sol": "IBeacon"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -51,11 +51,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/tokens/BSKTPairBeacon_flattened.sol": {
-			"keccak256": "0x4738b09c7bf554eddae62284b82029b9776da1d3fec4ffbb3fe73035da86f2ca",
+		"uniswap_flattened.sol": {
+			"keccak256": "0xa635891eba1ed965715e5d54a1876e6d104b41368fd4d509a03825776967f2e4",
+			"license": "MIT",
 			"urls": [
-				"bzz-raw://a04f066cdf6b4227b8a639d0d6fbbc98ca4805ad0ee970626d66cadba52143c8",
-				"dweb:/ipfs/Qmd7FwJBNMSCEPbDb8UHYnsjP6upkVMk8f1ydfeY8C4MX2"
+				"bzz-raw://c2cf8f55de0d59e568686fc10abbffa8caa56b09dddbd9e4b5bd29cbe29c73c4",
+				"dweb:/ipfs/QmaWGWWrf8xLi3VM2ccUMvSPCfVSN1S47Am8zbg3sXj2eL"
 			]
 		}
 	},

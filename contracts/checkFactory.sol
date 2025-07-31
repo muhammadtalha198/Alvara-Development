@@ -82,8 +82,10 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
 
     function initialize(BTSFactoryInitParams calldata params) external initializer {
         
-        _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
         __ReentrancyGuard_init();
+
+        _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
+
 
         _validateInitParams(params);
 

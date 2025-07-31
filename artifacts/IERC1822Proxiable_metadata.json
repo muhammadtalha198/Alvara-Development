@@ -1,0 +1,64 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "proxiableUUID",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "ERC-1822: Universal Upgradeable Proxy Standard (UUPS) documents a method for upgradeability through a simplified proxy whose upgrades are fully controlled by the current implementation.",
+			"kind": "dev",
+			"methods": {
+				"proxiableUUID()": {
+					"details": "Returns the storage slot that the proxiable contract assumes is being used to store the implementation address. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"uniswap_flattened.sol": "IERC1822Proxiable"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"uniswap_flattened.sol": {
+			"keccak256": "0xa635891eba1ed965715e5d54a1876e6d104b41368fd4d509a03825776967f2e4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c2cf8f55de0d59e568686fc10abbffa8caa56b09dddbd9e4b5bd29cbe29c73c4",
+				"dweb:/ipfs/QmaWGWWrf8xLi3VM2ccUMvSPCfVSN1S47Am8zbg3sXj2eL"
+			]
+		}
+	},
+	"version": 1
+}

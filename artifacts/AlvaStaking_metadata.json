@@ -1743,7 +1743,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"testStaking_flattened.sol": "AlvaStaking"
+			"contracts/AlvaStaking.sol": "AlvaStaking"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -1845,20 +1845,20 @@
 				"dweb:/ipfs/QmXFkNxMc3AAGzhs2wUEZyErWQjsvoTGyYjuU5oZkFki5Z"
 			]
 		},
+		"contracts/AlvaStaking.sol": {
+			"keccak256": "0x2fb9968bb95bc37d65bb6411adb5c4c6dcc171b06be45b7286eb9dd249b3007b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://781db3218ed175d7b6dd50911bd622c34dc6e44e590bdadcc284da14cf6b217a",
+				"dweb:/ipfs/QmdzG2W1ieqDBqsSeGMDgv5jWMvLvxADxKmKZUwSknqCUB"
+			]
+		},
 		"contracts/interfaces/IERC20.sol": {
 			"keccak256": "0x8bc93fd43424907389fc5a562f9ff329b67b2701c99c036a655ae14503880bc9",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://9bd7d0172b4a5d639fc48a7a159880510e30073ff03d782a238d4073b5c19bf8",
 				"dweb:/ipfs/QmQ2zryoqxdUxSjCtrwu6bkY5Bwo86fZJY3EEiP3TU85mB"
-			]
-		},
-		"testStaking_flattened.sol": {
-			"keccak256": "0xbce5cd201ac3aeb943d250b6aeb9d915522df7418269788a21a4db03cb95e639",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://1532ee95b2f857d32d6bd00093fc3c4c252331f183c36b923aaaa385115c0f3f",
-				"dweb:/ipfs/QmYpe87s5PN9BQFGU94a4haVUxhUg9fXGFpw6MDAKm6ecn"
 			]
 		}
 	},

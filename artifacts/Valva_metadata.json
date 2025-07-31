@@ -641,11 +641,11 @@
 			]
 		},
 		"Alva/VAlva.sol": {
-			"keccak256": "0x6feed2dce0ff604cb0455e72551bead4a3294d8d5f621ed99924c30442e343ca",
+			"keccak256": "0x8290ad120bc7f7d5940a816d156c54104ef7d7e1ff699ee15a1e145002c07af8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://56c8a3a940cd4d3d8c39b67da8bd4bea11e3622a8a37d73b6d20425b07ad28fd",
-				"dweb:/ipfs/QmXfUL9QoWYySChjFidNtWZKBW5sSvJxqpshPSD67rW6yP"
+				"bzz-raw://e6aeac47013f24d86b4f113114646f64eefd4cee6ac519cd540f780721457147",
+				"dweb:/ipfs/QmaCtaTQcZTYiM73Mq9sLuS75Etv7JkrRywvShYxZp34ib"
 			]
 		}
 	},

@@ -1,18 +1,28 @@
 {
 	"compiler": {
-		"version": "0.8.28+commit.7893614a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"name": "InvalidInitialization",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotInitializing",
+				"type": "error"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "uint8",
+						"internalType": "uint64",
 						"name": "version",
-						"type": "uint8"
+						"type": "uint64"
 					}
 				],
 				"name": "Initialized",
@@ -22,22 +32,25 @@
 		"devdoc": {
 			"custom:oz-upgrades-unsafe-allow": "constructor constructor() {     _disableInitializers(); } ``` ====",
 			"details": "This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer function so it can only be called once. The {initializer} modifier provided by this contract will have this effect. The initialization functions use a version number. Once a version number is used, it is consumed and cannot be reused. This mechanism prevents re-execution of each \"step\" but allows the creation of new initialization steps in case an upgrade adds a module that needs to be initialized. For example: [.hljs-theme-light.nopadding] ```solidity contract MyToken is ERC20Upgradeable {     function initialize() initializer public {         __ERC20_init(\"MyToken\", \"MTK\");     } } contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {     function initializeV2() reinitializer(2) public {         __ERC20Permit_init(\"MyToken\");     } } ``` TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}. CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure that all initializers are idempotent. This is not verified automatically as constructors are by Solidity. [CAUTION] ==== Avoid leaving a contract uninitialized. An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke the {_disableInitializers} function in the constructor to automatically lock it when it is deployed: [.hljs-theme-light.nopadding] ```",
+			"errors": {
+				"InvalidInitialization()": [
+					{
+						"details": "The contract is already initialized."
+					}
+				],
+				"NotInitializing()": [
+					{
+						"details": "The contract is not initializing."
+					}
+				]
+			},
 			"events": {
-				"Initialized(uint8)": {
+				"Initialized(uint64)": {
 					"details": "Triggered when the contract has been initialized or reinitialized."
 				}
 			},
 			"kind": "dev",
 			"methods": {},
-			"stateVariables": {
-				"_initialized": {
-					"custom:oz-retyped-from": "bool",
-					"details": "Indicates that the contract has been initialized."
-				},
-				"_initializing": {
-					"details": "Indicates that the contract is in the process of being initialized."
-				}
-			},
 			"version": 1
 		},
 		"userdoc": {
@@ -48,9 +61,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"testStaking_flattened.sol": "Initializable"
+			"uniswap_flattened.sol": "Initializable"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -62,12 +75,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"testStaking_flattened.sol": {
-			"keccak256": "0x10e2767c45c553709b2ecd2a19e320909d992629a1f109596d4181e08843541b",
+		"uniswap_flattened.sol": {
+			"keccak256": "0xa635891eba1ed965715e5d54a1876e6d104b41368fd4d509a03825776967f2e4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85c87c826c4acaf24f02e846d701b1812c99c3803e22231d86f9a6917a32c601",
-				"dweb:/ipfs/QmcoQdRuuzTX9n1PgdeMPJQo3kduPS9xD5fCsrYAz5gQXN"
+				"bzz-raw://c2cf8f55de0d59e568686fc10abbffa8caa56b09dddbd9e4b5bd29cbe29c73c4",
+				"dweb:/ipfs/QmaWGWWrf8xLi3VM2ccUMvSPCfVSN1S47Am8zbg3sXj2eL"
 			]
 		}
 	},

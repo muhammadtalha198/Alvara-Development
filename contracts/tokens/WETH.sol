@@ -11,12 +11,15 @@ import {ERC20Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract WETH is ERC20Upgradeable, OwnableUpgradeable {
+    
     event Deposit(address indexed dst, uint256 wad);
     event Withdrawal(address indexed src, uint256 wad);
 
     function initialize() public initializer {
         __ERC20_init("Wrapped Ether", "WETH");
         __Ownable_init();
+
+        super._mint(msg.sender, 10000000000 * (10 ** uint256(decimals())));
     }
 
     receive() external payable {

@@ -1479,7 +1479,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Factory.sol": "Factory"
+			"contracts/checkFactory.sol": "Factory"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -1901,12 +1901,12 @@
 				"dweb:/ipfs/QmTyotZk2J5YvWkNvB2qhXBMgRGWW2UgPqR4JPocrXSr8n"
 			]
 		},
-		"contracts/Factory.sol": {
-			"keccak256": "0x87b841b5a0fddc41e251d3e90eaa7a466137b373b375482846acd00d8720245d",
+		"contracts/checkFactory.sol": {
+			"keccak256": "0x17f026e84b656de38d1b6efdfd0ae32dff82cd9ca63d8fb3ae5c031b09f2f067",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7f8ba7b605aeb56d27759d23f2f754b189160dfbe0ea837cd58b8a28c6f2b1b7",
-				"dweb:/ipfs/QmVXBXLRPU6Bc4uhdV1rUTSVEFUkj2HEfqWtbLK4ksAgAs"
+				"bzz-raw://091575057c32b1be44d51a78a3bd9955752bd32a959d967c2c1c8108d921d36a",
+				"dweb:/ipfs/QmajHZJfEeuG7ds8NNCKZtFgpVTq8VtnSbUygtufEAPrDm"
 			]
 		},
 		"contracts/interfaces/IBSKT.sol": {

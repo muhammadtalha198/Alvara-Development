@@ -570,7 +570,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Alva/weth.sol": "Alva"
+			"Alva/Alva.sol": "Alva"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -640,12 +640,12 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"Alva/weth.sol": {
-			"keccak256": "0x48bf6258aa26b15ceef4e0a94189d33db7157b01b44a7deb304fad535bc09ba5",
+		"Alva/Alva.sol": {
+			"keccak256": "0x9dc4deddac1bd7f046d8d35a928599df0c6c2151883d40bf8df938dbde662d00",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa69700f6f4b7a95599a133fbb5ae86ff9a4df2b7c49b994c6e971a125a0e803",
-				"dweb:/ipfs/QmduohcpZ97xKLv2iS7Svnw7Sq2N9uCWhzKvrLRQWNgWL7"
+				"bzz-raw://902b6a2bb9b79933344ff4017d743957c763fe24a17a46fae757750a292b4094",
+				"dweb:/ipfs/QmUwR67EDLW47nHgMsExUDT98hgZLJpGrurJyXS2L6TfWv"
 			]
 		}
 	},

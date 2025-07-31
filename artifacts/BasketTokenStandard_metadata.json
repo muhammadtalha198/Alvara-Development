@@ -523,7 +523,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_buffer",
+						"name": "_slippage",
 						"type": "uint256"
 					},
 					{
@@ -554,7 +554,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_buffer",
+						"name": "_slippage",
 						"type": "uint256"
 					},
 					{
@@ -595,7 +595,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_buffer",
+						"name": "_slippage",
 						"type": "uint256"
 					},
 					{
@@ -857,7 +857,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_buffer",
+						"name": "_slippage",
 						"type": "uint256"
 					},
 					{
@@ -1065,7 +1065,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_buffer",
+						"name": "_slippage",
 						"type": "uint256"
 					},
 					{
@@ -1322,11 +1322,11 @@
 			]
 		},
 		"contracts/BSKT.sol": {
-			"keccak256": "0xb84e00798230d43d48dd92cae4600ea28bb42d5e6f748747bfa70c61b64cb210",
+			"keccak256": "0x8bf9b06fd8479979c700894c0c6f57dc704c7aa7c73ed5f2dfed2d6bfaedaab6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://30b08f37d9564f2834033458a96535e1346ad2d0c955591d85a67edf50d8cbae",
-				"dweb:/ipfs/QmWY9Fpuix6EjhFPvFB2q8tCEWFwPq1ssxaK7LecCgjjbv"
+				"bzz-raw://293474a8e4fa4e8e60a273630ece070092fa812a6dfd320cf6eeb343c3a647b9",
+				"dweb:/ipfs/QmTknBiQPYtYqkqUAgreJqEsdXWFWdCvFfGKeRdXfXYM38"
 			]
 		},
 		"contracts/interfaces/IBSKT.sol": {

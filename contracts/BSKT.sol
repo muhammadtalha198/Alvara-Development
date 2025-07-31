@@ -86,9 +86,9 @@ contract BasketTokenStandard is
             revert UnauthorizedSender(msg.sender);
     }
 
-    function _validateContributeInputs(uint256 _buffer, uint256 _deadline) private view {
-        if (_buffer == 0 || _buffer >= 5000) {
-            revert InvalidBuffer(_buffer, 1, 4999);
+    function _validateContributeInputs(uint256 _slippage, uint256 _deadline) private view {
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
         }
         if (msg.value == 0) revert ZeroContributionAmount();
         if (_deadline <= block.timestamp) revert DeadlineInPast(_deadline);
@@ -161,9 +161,9 @@ contract BasketTokenStandard is
         return (amountAfterFee, wethAddress, routerAddress, tokensLength, amounts);
     }
 
-    function contribute(uint256 _buffer, uint256 _deadline) external payable nonReentrant {
+    function contribute(uint256 _slippage, uint256 _deadline) external payable nonReentrant {
 
-        _validateContributeInputs(_buffer, _deadline);
+        _validateContributeInputs(_slippage, _deadline);
 
         (
             uint256 amountAfterFee,
@@ -191,7 +191,7 @@ contract BasketTokenStandard is
                 _tokenDetails.tokens[i],
                 wethAddress,
                 routerAddress,
-                _buffer,
+                _slippage,
                 _deadline
             );
 
@@ -206,11 +206,11 @@ contract BasketTokenStandard is
 
     function withdraw(
         uint256 _liquidity,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) private nonReentrant validateMinLpWithdrawal(_liquidity) {
-        if (_buffer == 0 || _buffer >= 5000) {
-            revert InvalidBuffer(_buffer, 1, 4999);
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
         }
 
         IFactory factoryInstance = _factory(); 
@@ -230,7 +230,7 @@ contract BasketTokenStandard is
                 factoryInstance,
                 feeAmounts,
                 payable(feeCollector),
-                _buffer,
+                _slippage,
                 _deadline
             );
             emit PlatformFeeDeducted(
@@ -257,7 +257,7 @@ contract BasketTokenStandard is
         IFactory factoryInstance,
         uint256[] memory _amounts,
         address payable _receiver,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) private returns (uint256 totalETH) {
         if (_deadline <= block.timestamp) revert DeadlineInPast(_deadline);
@@ -277,7 +277,7 @@ contract BasketTokenStandard is
                         routerAddress,
                         _amounts[i],
                         address(this),
-                        _buffer,
+                        _slippage,
                         _deadline
                     );
                     totalWETH += wethAmount;
@@ -301,10 +301,10 @@ contract BasketTokenStandard is
         return totalETH;
     }
 
-    function withdrawETH(uint256 _liquidity,uint256 _buffer, uint256 _deadline) external nonReentrant validateMinLpWithdrawal(_liquidity) {
+    function withdrawETH(uint256 _liquidity,uint256 _slippage, uint256 _deadline) external nonReentrant validateMinLpWithdrawal(_liquidity) {
        
-        if (_buffer == 0 || _buffer >= 5000) {
-            revert InvalidBuffer(_buffer, 1, 4999);
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
         }
 
         IFactory factoryInstance = _factory(); 
@@ -328,7 +328,7 @@ contract BasketTokenStandard is
                 factoryInstance,
                 feeAmounts,
                 payable(feeCollector),
-                _buffer,
+                _slippage,
                 _deadline
             );
             emit PlatformFeeDeducted(
@@ -345,7 +345,7 @@ contract BasketTokenStandard is
             factoryInstance,
             userAmounts,
             payable(msg.sender),
-            _buffer,
+            _slippage,
             _deadline
         );
 
@@ -355,34 +355,34 @@ contract BasketTokenStandard is
     function rebalance(
         address[] calldata _newTokens,
         uint256[] calldata _newWeights,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) external onlyOwner {
-        if (_buffer == 0 || _buffer >= 5000) {
-            revert InvalidBuffer(_buffer, 1, 4999);
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
         }
-        _rebalance(_newTokens, _newWeights, _buffer, false, _deadline);
+        _rebalance(_newTokens, _newWeights, _slippage, false, _deadline);
     }
 
     function emergencyStable(
         address[] calldata _newTokens,
         uint256[] calldata _newWeights,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) external onlyOwner {
-        if (_buffer == 0 || _buffer >= 5000) {
-            revert InvalidBuffer(_buffer, 1, 4999);
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
         }
-        _rebalance(_newTokens, _newWeights, _buffer, true, _deadline);
+        _rebalance(_newTokens, _newWeights, _slippage, true, _deadline);
     }
 
     function claimFee(
         uint256 amount,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) external onlyOwner {
-        if (_buffer == 0 || _buffer >= 5000) {
-            revert InvalidBuffer(_buffer, 1, 4999);
+        if (_slippage == 0 || _slippage >= 5000) {
+            revert InvalidBuffer(_slippage, 1, 4999);
         }
 
         IFactory factoryInstance = _factory();
@@ -395,7 +395,7 @@ contract BasketTokenStandard is
             factoryInstance,
             _amounts,
             payable(getOwner()),
-            _buffer,
+            _slippage,
             _deadline
         );
 
@@ -520,7 +520,7 @@ contract BasketTokenStandard is
     function _rebalance(
         address[] memory _newTokens,
         uint256[] memory _newWeights,
-        uint256 _buffer,
+        uint256 _slippage,
         bool _isEmergencyStable,
         uint256 _deadline
     ) private checkLength(_newTokens.length, _newWeights.length) {
@@ -537,15 +537,15 @@ contract BasketTokenStandard is
         address wethAddress = _factory().weth();
         address routerAddress = _factory().router();
 
-        uint256 wethBought = _prepareRebalance(wethAddress, routerAddress, _buffer, _deadline);
-        _allocateNewWeights(wethBought, _newTokens, _newWeights, wethAddress, routerAddress, _buffer, _deadline);
+        uint256 wethBought = _prepareRebalance(wethAddress, routerAddress, _slippage, _deadline);
+        _allocateNewWeights(wethBought, _newTokens, _newWeights, wethAddress, routerAddress, _slippage, _deadline);
         _finalizeRebalance(_newTokens, _newWeights);
     }
 
     function _prepareRebalance(
         address wethAddress,
         address routerAddress,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) private returns (uint256 wethBought) {
         uint256 tokensLength = _tokenDetails.tokens.length;
@@ -561,7 +561,7 @@ contract BasketTokenStandard is
                     routerAddress,
                     balance,
                     address(this),
-                    _buffer,
+                    _slippage,
                     _deadline
                 );
             }
@@ -578,7 +578,7 @@ contract BasketTokenStandard is
         uint256[] memory _newWeights,
         address wethAddress,
         address routerAddress,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) private {
         uint256 tokensLength = _newWeights.length;
@@ -600,7 +600,7 @@ contract BasketTokenStandard is
                 routerAddress,
                 amountToSwap,
                 bsktPair,
-                _buffer,
+                _slippage,
                 _deadline
             );
 
@@ -639,7 +639,7 @@ contract BasketTokenStandard is
         address _router,
         uint256 _amountIn,
         address _to,
-        uint256 _buffer,
+        uint256 _slippage,
         uint256 _deadline
     ) private returns (uint256) {
         IERC20Upgradeable(_tokenIn).safeApprove(_router, 0);
@@ -649,7 +649,7 @@ contract BasketTokenStandard is
         if (path.length != 2) revert InvalidLength();
 
         uint256 _amountOutMin = (_factory().getAmountsOut(_amountIn, path) *
-            (PERCENT_PRECISION - _buffer)) / PERCENT_PRECISION;
+            (PERCENT_PRECISION - _slippage)) / PERCENT_PRECISION;
 
         uint256 balanceBefore = IERC20Upgradeable(_tokenOut).balanceOf(_to);
         IUniswapV2Router(_router)

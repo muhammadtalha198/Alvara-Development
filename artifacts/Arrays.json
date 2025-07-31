@@ -1,0 +1,91 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "60556032600b8282823980515f1a607314602657634e487b7160e01b5f525f60045260245ffd5b305f52607381538281f3fe730000000000000000000000000000000000000000301460806040525f5ffdfea2646970667358221220ad5db36f972e9c754e0580454bbd3b89f6840cf48b4162223bdba2cfb118872764736f6c634300081e0033",
+			"opcodes": "PUSH1 0x55 PUSH1 0x32 PUSH1 0xB DUP3 DUP3 DUP3 CODECOPY DUP1 MLOAD PUSH0 BYTE PUSH1 0x73 EQ PUSH1 0x26 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH0 MSTORE PUSH0 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH0 REVERT JUMPDEST ADDRESS PUSH0 MSTORE PUSH1 0x73 DUP2 MSTORE8 DUP3 DUP2 RETURN INVALID PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 PUSH0 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xAD TSTORE 0xB3 PUSH16 0x972E9C754E0580454BBD3B89F6840CF4 DUP12 COINBASE PUSH3 0x223BDB LOG2 0xCF 0xB1 XOR DUP8 0x27 PUSH5 0x736F6C6343 STOP ADDMOD 0x1E STOP CALLER ",
+			"sourceMap": "105745:17881:0:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;105745:17881:0;;;;;;;;;;;;;;;;;"
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "730000000000000000000000000000000000000000301460806040525f5ffdfea2646970667358221220ad5db36f972e9c754e0580454bbd3b89f6840cf48b4162223bdba2cfb118872764736f6c634300081e0033",
+			"opcodes": "PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 PUSH0 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xAD TSTORE 0xB3 PUSH16 0x972E9C754E0580454BBD3B89F6840CF4 DUP12 COINBASE PUSH3 0x223BDB LOG2 0xCF 0xB1 XOR DUP8 0x27 PUSH5 0x736F6C6343 STOP ADDMOD 0x1E STOP CALLER ",
+			"sourceMap": "105745:17881:0:-:0;;;;;;;;"
+		},
+		"gasEstimates": {
+			"creation": {
+				"codeDepositCost": "17000",
+				"executionCost": "96",
+				"totalCost": "17096"
+			},
+			"internal": {
+				"_begin(uint256[] memory)": "infinite",
+				"_castToUint256Array(address[] memory)": "infinite",
+				"_castToUint256Array(bytes32[] memory)": "infinite",
+				"_castToUint256Comp(function (address,address) pure returns (bool))": "infinite",
+				"_castToUint256Comp(function (bytes32,bytes32) pure returns (bool))": "infinite",
+				"_end(uint256[] memory)": "infinite",
+				"_mload(uint256)": "infinite",
+				"_quickSort(uint256,uint256,function (uint256,uint256) pure returns (bool))": "infinite",
+				"_swap(uint256,uint256)": "infinite",
+				"findUpperBound(uint256[] storage pointer,uint256)": "infinite",
+				"lowerBound(uint256[] storage pointer,uint256)": "infinite",
+				"lowerBoundMemory(uint256[] memory,uint256)": "infinite",
+				"sort(address[] memory)": "infinite",
+				"sort(address[] memory,function (address,address) pure returns (bool))": "infinite",
+				"sort(bytes32[] memory)": "infinite",
+				"sort(bytes32[] memory,function (bytes32,bytes32) pure returns (bool))": "infinite",
+				"sort(uint256[] memory)": "infinite",
+				"sort(uint256[] memory,function (uint256,uint256) pure returns (bool))": "infinite",
+				"unsafeAccess(address[] storage pointer,uint256)": "infinite",
+				"unsafeAccess(bytes32[] storage pointer,uint256)": "infinite",
+				"unsafeAccess(uint256[] storage pointer,uint256)": "infinite",
+				"unsafeMemoryAccess(address[] memory,uint256)": "infinite",
+				"unsafeMemoryAccess(bytes32[] memory,uint256)": "infinite",
+				"unsafeMemoryAccess(uint256[] memory,uint256)": "infinite",
+				"unsafeSetLength(address[] storage pointer,uint256)": "infinite",
+				"unsafeSetLength(bytes32[] storage pointer,uint256)": "infinite",
+				"unsafeSetLength(uint256[] storage pointer,uint256)": "infinite",
+				"upperBound(uint256[] storage pointer,uint256)": "infinite",
+				"upperBoundMemory(uint256[] memory,uint256)": "infinite"
+			}
+		},
+		"methodIdentifiers": {}
+	},
+	"abi": []
+}

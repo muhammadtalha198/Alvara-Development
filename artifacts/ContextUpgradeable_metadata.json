@@ -1,18 +1,28 @@
 {
 	"compiler": {
-		"version": "0.8.28+commit.7893614a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"name": "InvalidInitialization",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotInitializing",
+				"type": "error"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "uint8",
+						"internalType": "uint64",
 						"name": "version",
-						"type": "uint8"
+						"type": "uint64"
 					}
 				],
 				"name": "Initialized",
@@ -21,18 +31,25 @@
 		],
 		"devdoc": {
 			"details": "Provides information about the current execution context, including the sender of the transaction and its data. While these are generally available via msg.sender and msg.data, they should not be accessed in such a direct manner, since when dealing with meta-transactions the account sending and paying for execution may not be the actual sender (as far as an application is concerned). This contract is only required for intermediate, library-like contracts.",
+			"errors": {
+				"InvalidInitialization()": [
+					{
+						"details": "The contract is already initialized."
+					}
+				],
+				"NotInitializing()": [
+					{
+						"details": "The contract is not initializing."
+					}
+				]
+			},
 			"events": {
-				"Initialized(uint8)": {
+				"Initialized(uint64)": {
 					"details": "Triggered when the contract has been initialized or reinitialized."
 				}
 			},
 			"kind": "dev",
 			"methods": {},
-			"stateVariables": {
-				"__gap": {
-					"details": "This empty reserved space is put in place to allow future versions to add new variables without shifting down storage in the inheritance chain. See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps"
-				}
-			},
 			"version": 1
 		},
 		"userdoc": {
@@ -43,9 +60,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"testStaking_flattened.sol": "ContextUpgradeable"
+			"uniswap_flattened.sol": "ContextUpgradeable"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -57,12 +74,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"testStaking_flattened.sol": {
-			"keccak256": "0x10e2767c45c553709b2ecd2a19e320909d992629a1f109596d4181e08843541b",
+		"uniswap_flattened.sol": {
+			"keccak256": "0xa635891eba1ed965715e5d54a1876e6d104b41368fd4d509a03825776967f2e4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85c87c826c4acaf24f02e846d701b1812c99c3803e22231d86f9a6917a32c601",
-				"dweb:/ipfs/QmcoQdRuuzTX9n1PgdeMPJQo3kduPS9xD5fCsrYAz5gQXN"
+				"bzz-raw://c2cf8f55de0d59e568686fc10abbffa8caa56b09dddbd9e4b5bd29cbe29c73c4",
+				"dweb:/ipfs/QmaWGWWrf8xLi3VM2ccUMvSPCfVSN1S47Am8zbg3sXj2eL"
 			]
 		}
 	},

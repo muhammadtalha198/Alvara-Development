@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.28+commit.7893614a"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -185,9 +185,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Alva/Alva_flattened.sol": "IERC1155Errors"
+			"uniswap_flattened.sol": "IERC1155Errors"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -199,12 +199,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Alva/Alva_flattened.sol": {
-			"keccak256": "0x435c8d04894b0ba8639fcb3278a9b9b183d2003108deba5a25e971bbfe93e6e6",
+		"uniswap_flattened.sol": {
+			"keccak256": "0xa635891eba1ed965715e5d54a1876e6d104b41368fd4d509a03825776967f2e4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c4a32a971a8281fdfa9f0615b1b363d2a2951f4837925d94abd45f169740fd8a",
-				"dweb:/ipfs/Qmbdos1HiPL6fEgNYuzx6SGwRzeGfYvt3SiyZCdruvKj1B"
+				"bzz-raw://c2cf8f55de0d59e568686fc10abbffa8caa56b09dddbd9e4b5bd29cbe29c73c4",
+				"dweb:/ipfs/QmaWGWWrf8xLi3VM2ccUMvSPCfVSN1S47Am8zbg3sXj2eL"
 			]
 		}
 	},

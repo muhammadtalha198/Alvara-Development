@@ -591,11 +591,11 @@
 			]
 		},
 		"contracts/tokens/WETH.sol": {
-			"keccak256": "0xe644a87c19d8bf1e6b36300ec876bf632d1b1714f8b2a0bd66cd1e23e4fd8b31",
+			"keccak256": "0xaa10caee8ff46706d5671fb9499b48186af4934f9172f21780ab11d34b79b2a4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://144313a7ada93420d023f343ada5d981a00aa73baf19d2d7cc42b224ba68d37f",
-				"dweb:/ipfs/QmaZ1sE5ZWuEfU9tei4s3BSGQMnFBmHPUzzGW8pMQRVdEQ"
+				"bzz-raw://51b38bf9c0330d33160bdcb6c6edc89fdb516fd8d73a7a4f3eaae7ce3e7fe238",
+				"dweb:/ipfs/QmV79tZiesXkpwtprxgpwGJp3mdMAUxTFZWKkDu8e6x81u"
 			]
 		}
 	},

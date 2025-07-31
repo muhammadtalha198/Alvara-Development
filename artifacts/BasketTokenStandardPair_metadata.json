@@ -936,11 +936,11 @@
 			]
 		},
 		"contracts/tokens/BSKTPair.sol": {
-			"keccak256": "0x24d03f31936ee6d83e2cc8ec91a9ef20d6b0df4a3edd861c50470dd56f759bde",
+			"keccak256": "0x4d21dcb88c24773c024d30aacd21744bf9f9ea20209a3f4455bce89dc244fb69",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://00cd1d920af65eeb141dde72227417003190d0bdadd021c8b93931362b2e16b4",
-				"dweb:/ipfs/QmdZuSReswXZzsvrKnWEkdqSWwrxN5jjHP3MjHoAgznGSM"
+				"bzz-raw://caeba0a0e5484e35ea461896f1ce189da1714028e56829f0007b8710e98909c3",
+				"dweb:/ipfs/QmU5LEJy5pQGJ9V7a9FjoU2Fs5UgT2yShEzsiC6hj8WjJs"
 			]
 		}
 	},

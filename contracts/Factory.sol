@@ -62,13 +62,26 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
 //     uint256 _minBSKTCreationAmount;
 // }
 
-// ["0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71","0x3128Ef4221F151D0F9D9E04aD70CF5Af052a6F37","0x9342Dc51Aea8015ca497E7abF39030Ef28136471","0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3","0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915",100,10,"_collectionUri",10]
+// ["0xAb2758cC7Ef786DbCEc38D2f156230b5993E2e71","0x3128Ef4221F151D0F9D9E04aD70CF5Af052a6F37","0x9342Dc51Aea8015ca497E7abF39030Ef28136471","0x04e6Ee7B29634526e8abE5F5C37bcd136296b015","0xCE2a36BB4c6Db7B2fB0d60Bd1818c87E7fD2D129","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0",100,10,"_collectionUri",10]
+
+
+
+
+
 
 // Remix 
-// ["0xeF50110EAc01512796e7AaFEe68458800A4bD358","0x62FF318Bee4D6d605D163Ed3325077E32803599B","0xDf159010A8d1B173262EBb3D7b5393Dc0333301d","0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3","0xD31f44e3C93cB349BD3aFAD9725Bca50C410b27c","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915","0xcCc22A7fc54d184138dfD87B7aD24552cD4E0915",100,10,"_collectionUri",10]
+// ["0x73DeAC4CE5Ae3caCe36F1481B62cb635D9733E0D","0xD70cc1336ecf0B8FaD791e010CA6aC5F82980A38","0xBAdDE786335f324dC5368D9f8796fe180F9aBf2c","0xF183a37C121Fb678D81bEC8a715B3E20eFC6f1B1","0x9279F54dAc3570d115AdB6083f85D05a4e6F41Ad","0xdD870fA1b7C4700F2BD7f44238821C26f7392148","0xdD870fA1b7C4700F2BD7f44238821C26f7392148","0xdD870fA1b7C4700F2BD7f44238821C26f7392148",100,10,"_collectionUri",10]
 
-// Monad 0xE53C8912c40066c47258f54d42B8Ec9253086F8e
-// ["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0xeF2B7db5Dfba8Cab0BAefD289Eb4F35d6D1dFDe8","0xC27c2a1ce48493D9d82E66F93323Ef803000C22a","0xfB8e1C3b833f9E67a71C859a132cf783b645e436","0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0",100,10,"_collectionUri",10]
+
+
+
+
+
+
+// Monad 
+
+// ["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0xeF2B7db5Dfba8Cab0BAefD289Eb4F35d6D1dFDe8","0xC27c2a1ce48493D9d82E66F93323Ef803000C22a","0x95F84Cd9A3D5fB01Db546c98d918a818D69bBFBf","0x6dD37D42B2427aA3c3e887B579E698a484D8e062","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0",100,10,"_collectionUri",10]
+// ["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0xeF2B7db5Dfba8Cab0BAefD289Eb4F35d6D1dFDe8","0xC27c2a1ce48493D9d82E66F93323Ef803000C22a","0x95F84Cd9A3D5fB01Db546c98d918a818D69bBFBf","0x6dD37D42B2427aA3c3e887B579E698a484D8e062","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0","0xA33c5875BE1e3aFd5D72C5dF98D3469d95aC85B0",100,10,"_collectionUri",10]
 
     address[] public bsktList;
     mapping(address => bool) public whitelistedContracts;
@@ -82,6 +95,12 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
     function initialize(BTSFactoryInitParams calldata params) external initializer {
         
         _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _grantRole(ADMIN_ROLE, msg.sender);
+        _grantRole(FEE_MANAGER_ROLE, msg.sender);
+        _grantRole(URI_MANAGER_ROLE, msg.sender);
+        _grantRole(WHITELIST_MANAGER_ROLE, msg.sender);
+        _grantRole(UPGRADER_ROLE, msg.sender);
+        
         __ReentrancyGuard_init();
 
         _validateInitParams(params);
@@ -152,39 +171,59 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
 // ["0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0x0fc4580f70C517B148a141f3721C5138f74401b1"]
 
 
+
+
+
+
 // MONAD
 // ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
-// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0x78194Fd31F03cDfC782BBC8Ada4471c56702F306"],[5000,5000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0x78194Fd31F03cDfC782BBC8Ada4471c56702F306","0x9c30D4B8790467515A9dAE8C2369f2Bd6e4b8f39"],[2000,3000,5000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0","0x78194Fd31F03cDfC782BBC8Ada4471c56702F306","0x9c30D4B8790467515A9dAE8C2369f2Bd6e4b8f39","0x7b5c8eB52d19C965e88D0580Ea7F5a5a95516Dde"],[1000,2000,3000,5000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
 
+// ["LstBTC","LstBTC",["0x9053Ce7DD774d13c44330cBB9935b4277CE0aDc0"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x78194Fd31F03cDfC782BBC8Ada4471c56702F306"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",100,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x9c30D4B8790467515A9dAE8C2369f2Bd6e4b8f39"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",100,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+// ["LstBTC","LstBTC",["0x7b5c8eB52d19C965e88D0580Ea7F5a5a95516Dde"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",100,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+
+   
+   
+   
     //Remix
-//      ["LstBTC","LstBTC",["0xeF50110EAc01512796e7AaFEe68458800A4bD358"],[10000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+//      ["LstBTC","LstBTC",["0x73DeAC4CE5Ae3caCe36F1481B62cb635D9733E0D","0x48526edd858a05f8591c0BA38c10f7493174ee1E"],[5000,5000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",50,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+//      ["LstBTC","LstBTC",["0x73DeAC4CE5Ae3caCe36F1481B62cb635D9733E0D","0x9DD41ECd6e1701CE34523ed98423c1eFb0805aBD","0x48526edd858a05f8591c0BA38c10f7493174ee1E"],[5000,3000,2000],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",100,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+//      ["LstBTC","LstBTC",["0x73DeAC4CE5Ae3caCe36F1481B62cb635D9733E0D","0x9DD41ECd6e1701CE34523ed98423c1eFb0805aBD","0x48526edd858a05f8591c0BA38c10f7493174ee1E","0xCf19DeBf8359fd17bd36AdBd71869CA9E8E4FacC","0x565BD1C5C443BC2F1C2aE6Fe06Ed0ee1ef08141D"],[1000,4000,3000,1000,"1000"],"https://brown-near-muskox-833.mypinata.cloud/ipfs/QmTRHQsrCobn8g5DYZwmEVSJa4TPLh1c3LQdShc6FXHaN2",100,"68810ce25080883fb813b883","LstBTC LstBTC ",1756469477]
+
+// AAVE: 0x48526edd858a05f8591c0BA38c10f7493174ee1E
+//  AKT: 0x9DD41ECd6e1701CE34523ed98423c1eFb0805aBD
+// AERo: 0xCf19DeBf8359fd17bd36AdBd71869CA9E8E4FacC
+// AIOZ: 0x565BD1C5C443BC2F1C2aE6Fe06Ed0ee1ef08141D
+
+// ALVA: 0x73DeAC4CE5Ae3caCe36F1481B62cb635D9733E0D
+
+// ["0x9279F54dAc3570d115AdB6083f85D05a4e6F41Ad","0x73DeAC4CE5Ae3caCe36F1481B62cb635D9733E0D"]
+// ["0x9279F54dAc3570d115AdB6083f85D05a4e6F41Ad","0x9DD41ECd6e1701CE34523ed98423c1eFb0805aBD"]
+// ["0x9279F54dAc3570d115AdB6083f85D05a4e6F41Ad","0x48526edd858a05f8591c0BA38c10f7493174ee1E"]
+
+
 
 
     function createBSKT(BSKTInput calldata input) external payable nonReentrant {
         
         uint256 amountAfterFee = _validateAndChargeCreationFee(input);
-        require(amountAfterFee < msg.value,"amountAfterFee is not less then msg.value");
 
         (address _bskt, address _bsktPair) = _initializeBSKTWithPair(input);
-        require(_bskt != address(0) && _bsktPair != address(0), "bskt, _bsktPair address is zero");
 
         (uint256 totalETHswapped, uint256[] memory amounts) = _swapETHForTokens(_bsktPair, input, amountAfterFee);
-
-        require( totalETHswapped > 0, "totalETHswapped is less then  0");
        
         bsktList.push(_bskt);
-            
-            require(bsktList.length > 0, "bsktList.length address is zero");
         
-        // IBSKTPair(_bsktPair).mint(msg.sender, amounts);
+        IBSKTPair(_bsktPair).mint(msg.sender, amounts);
         OwnableUpgradeable(_bsktPair).transferOwnership(_bskt);
-        
-        require( IBSKTPair(_bsktPair).getOwner() == _bskt, "owner didnt set");
-        require(totalETHswapped <= amountAfterFee,"totalETHswapped > amountAfterFee");
 
-        // if (totalETHswapped > amountAfterFee) {
-        //     revert ExcessiveSwapAmount();
-        // }
+        if (totalETHswapped > amountAfterFee) {
+            revert ExcessiveSwapAmount();
+        }
 
         if (totalETHswapped < amountAfterFee) {
             (bool success,) = payable(msg.sender).call{value: amountAfterFee - totalETHswapped}("");
@@ -259,7 +298,6 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
             require(success, "Failed to deduct BSKT Creation Fee");
             emit BSKTCreationFeeDeducted(creationFeeAmount,platformFeeConfig.bsktCreationFee,platformFeeConfig.feeCollector);
         }
-
          
         amountAfterFee = msg.value - creationFeeAmount;
     }
@@ -320,15 +358,9 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
             
             uint256 _amountInMin = (i == tokensLength - 1) ? amountAfterFee - totalETHswapped : (amountAfterFee * input.weights[i]) / PERCENT_PRECISION;
 
-            console.log("_amountInMin: ",_amountInMin);
-
             address[] memory path = getPath(weth, input.tokens[i]);
-
-             console.log("getAmountsOut: ",getAmountsOut(_amountInMin, path));
-             console.log("PERCENT_PRECISION - input.slippage: ",PERCENT_PRECISION - input.slippage);
             
             uint256 _amountOutMin = (getAmountsOut(_amountInMin, path) * (PERCENT_PRECISION - input.slippage)) / PERCENT_PRECISION;
-             console.log("_amountOutMin: ",_amountOutMin);
 
             uint256 balanceBefore = IERC20(input.tokens[i]).balanceOf(_bsktPair);
 
@@ -372,7 +404,8 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
     }
 
     function updateMinPercentALVA(uint16 _minPercentALVA) external onlyRole(ADMIN_ROLE) {
-        if (_minPercentALVA < 100 || _minPercentALVA > 5000) revert InvalidAlvaPercentage(_minPercentALVA, 100, 5000);
+        if (_minPercentALVA < 100 || _minPercentALVA > 5000) 
+            revert InvalidAlvaPercentage(_minPercentALVA, 100, 5000);
         minPercentALVA = _minPercentALVA;
         emit MinAlvaPercentageUpdated(_minPercentALVA);
     }
@@ -391,7 +424,8 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
     }
 
     function updateRoyaltyReceiver(address _royaltyReceiver) external onlyRole(FEE_MANAGER_ROLE) {
-        if (_royaltyReceiver == address(0) || _royaltyReceiver == royaltyReceiver) revert InvalidAddress();
+        if (_royaltyReceiver == address(0) || _royaltyReceiver == royaltyReceiver)
+             revert InvalidAddress();
         royaltyReceiver = _royaltyReceiver;
         emit RoyaltyReceiverUpdated(_royaltyReceiver);
     }
@@ -459,6 +493,17 @@ contract Factory is Initializable, AccessControlUpgradeable, ReentrancyGuardUpgr
         path[1] = _tokenB;
         return path;
     }
+
+    function checkAllRoles(address account) external view returns (bool , bool, bool, bool, bool,bool) {
+    return (
+        hasRole(DEFAULT_ADMIN_ROLE, account),
+        hasRole(ADMIN_ROLE, account),
+        hasRole(FEE_MANAGER_ROLE, account),
+        hasRole(URI_MANAGER_ROLE, account),
+        hasRole(WHITELIST_MANAGER_ROLE, account),
+        hasRole(UPGRADER_ROLE, account)
+    );
+}
     // ["0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0x0fc4580f70C517B148a141f3721C5138f74401b1"]
 
 
