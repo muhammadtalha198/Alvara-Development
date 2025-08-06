@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.28+commit.7893614a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -493,13 +493,13 @@
 		"compilationTarget": {
 			"uniswap.sol": "UniswapV2Router02"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -586,11 +586,11 @@
 			]
 		},
 		"uniswap.sol": {
-			"keccak256": "0xa8f320c90bc473d05e1969b182c4250c7f92c729b0b6c977cde0aab644d33644",
+			"keccak256": "0xfa39f0a84ba0fcb5d8cc953633cad3be340202e5aed84c7f621e401f114db6fc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://923e81cbc0b12fc4acfe2b43411932f668a3759ca31b907e0ccfc8d3c075dacf",
-				"dweb:/ipfs/QmSRhHkDxER5e5GvTZFtNfiNbhzpDU87h57EvUyDNBCmxh"
+				"bzz-raw://2cdd5ccc4fa62360526d59bacb17ecb5841b518e70183c22c72d49f6d8a2e7a6",
+				"dweb:/ipfs/QmT755SXNptA4XyF8BDYUnyESLA1Xs3oBbSS5JskDgD7TW"
 			]
 		}
 	},

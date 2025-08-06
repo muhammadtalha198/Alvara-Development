@@ -13,12 +13,10 @@ import "./interfaces/IUniswap.sol";
 import "./interfaces/IWETH.sol";
 import "./interfaces/IBSKT.sol";
 
-contract BasketTokenStandard is
-    ERC721URIStorageUpgradeable,
-    IERC2981Upgradeable,
-    ReentrancyGuardUpgradeable,
-    IBSKT
-{
+import "hardhat/console.sol";
+
+contract BasketTokenStandard is ERC721URIStorageUpgradeable,IERC2981Upgradeable,ReentrancyGuardUpgradeable,IBSKT{
+    
     using SafeERC20Upgradeable for IERC20Upgradeable;
 
     struct TokenDetails {
@@ -137,16 +135,41 @@ contract BasketTokenStandard is
         return IERC20Upgradeable(token).balanceOf(bsktPair) - balance;
     }
 
-    function _initializeContribute()
-        private
-        returns (
-            uint256 amountAfterFee,
-            address wethAddress,
-            address routerAddress,
-            uint256 tokensLength,
-            uint256[] memory amounts
-        )
-    {
+
+
+    function contribute(uint256 _slippage, uint256 _deadline) external payable nonReentrant {
+
+        _validateContributeInputs(_slippage, _deadline);
+
+        (uint256 amountAfterFee,address wethAddress,address routerAddress,uint256 tokensLength,uint256[] memory amounts) = _initializeContribute();
+
+        uint256 totalAllocated;
+
+        for (uint256 i = 0; i < tokensLength; ) {
+            
+            uint256 weight = _tokenDetails.weights[i];
+            uint256 amountInMin;
+
+            if (i == tokensLength - 1) {
+                amountInMin = amountAfterFee - totalAllocated;
+            } else {
+                amountInMin = (amountAfterFee * weight) / PERCENT_PRECISION;
+                totalAllocated += amountInMin;
+            }
+
+            amounts[i] = _swapEthForTokens(amountInMin,_tokenDetails.tokens[i],wethAddress,routerAddress,_slippage,_deadline);
+
+            unchecked {
+                ++i;
+            }
+        }
+
+        IBSKTPair(bsktPair).mint(msg.sender, amounts);
+        emit ContributedToBSKT(address(this), msg.sender, msg.value);
+    }
+
+     function _initializeContribute() private returns (uint256 amountAfterFee,address wethAddress,address routerAddress,uint256 tokensLength,uint256[] memory amounts){
+        
         IFactory factoryInstance = _factory();
         (, uint256 contributionFee, , address feeCollector) = factoryInstance.getPlatformFeeConfig();
 
@@ -159,49 +182,6 @@ contract BasketTokenStandard is
         amounts = new uint256[](tokensLength);
 
         return (amountAfterFee, wethAddress, routerAddress, tokensLength, amounts);
-    }
-
-    function contribute(uint256 _slippage, uint256 _deadline) external payable nonReentrant {
-
-        _validateContributeInputs(_slippage, _deadline);
-
-        (
-            uint256 amountAfterFee,
-            address wethAddress,
-            address routerAddress,
-            uint256 tokensLength,
-            uint256[] memory amounts
-        ) = _initializeContribute();
-
-        uint256 totalAllocated;
-
-        for (uint256 i = 0; i < tokensLength; ) {
-            uint256 weight = _tokenDetails.weights[i];
-            uint256 amountInMin;
-
-            if (i == tokensLength - 1) {
-                amountInMin = amountAfterFee - totalAllocated;
-            } else {
-                amountInMin = (amountAfterFee * weight) / PERCENT_PRECISION;
-                totalAllocated += amountInMin;
-            }
-
-            amounts[i] = _swapEthForTokens(
-                amountInMin,
-                _tokenDetails.tokens[i],
-                wethAddress,
-                routerAddress,
-                _slippage,
-                _deadline
-            );
-
-            unchecked {
-                ++i;
-            }
-        }
-
-        IBSKTPair(bsktPair).mint(msg.sender, amounts);
-        emit ContributedToBSKT(address(this), msg.sender, msg.value);
     }
 
     function withdraw(uint256 _liquidity,uint256 _slippage,uint256 _deadline) private nonReentrant validateMinLpWithdrawal(_liquidity) {
@@ -289,15 +269,7 @@ contract BasketTokenStandard is
                 if (_tokenDetails.tokens[i] == wethAddress) {
                     totalWETH += _amounts[i];
                 } else {
-                    uint256 wethAmount = _swapTokensForTokens(
-                        _tokenDetails.tokens[i],
-                        wethAddress,
-                        routerAddress,
-                        _amounts[i],
-                        address(this),
-                        _slippage,
-                        _deadline
-                    );
+                    uint256 wethAmount = _swapTokensForTokens(_tokenDetails.tokens[i],wethAddress,routerAddress,_amounts[i],address(this),_slippage,_deadline);
                     totalWETH += wethAmount;
                 }
             }
@@ -307,47 +279,35 @@ contract BasketTokenStandard is
         }
 
         if (totalWETH > 0) {
+            
             IWETH(wethAddress).withdraw(totalWETH);
+            
             (bool success, ) = _receiver.call{value: totalWETH}("");
-            require(
-                success,
-                "Failed to unwrap and transfer WETH to the receiver"
-            );
+            require(success,"Failed to unwrap and transfer WETH to the receiver");
             totalETH = totalWETH;
         }
 
         return totalETH;
     }
 
-    function rebalance(
-        address[] calldata _newTokens,
-        uint256[] calldata _newWeights,
-        uint256 _slippage,
-        uint256 _deadline
-    ) external onlyOwner {
+    function rebalance(address[] calldata _newTokens,uint256[] calldata _newWeights,uint256 _slippage,uint256 _deadline) external onlyOwner {
+        
         if (_slippage == 0 || _slippage >= 5000) {
             revert InvalidBuffer(_slippage, 1, 4999);
         }
         _rebalance(_newTokens, _newWeights, _slippage, false, _deadline);
     }
 
-    function emergencyStable(
-        address[] calldata _newTokens,
-        uint256[] calldata _newWeights,
-        uint256 _slippage,
-        uint256 _deadline
-    ) external onlyOwner {
+    function emergencyStable(address[] calldata _newTokens,uint256[] calldata _newWeights,uint256 _slippage,uint256 _deadline) external onlyOwner {
+        
         if (_slippage == 0 || _slippage >= 5000) {
             revert InvalidBuffer(_slippage, 1, 4999);
         }
         _rebalance(_newTokens, _newWeights, _slippage, true, _deadline);
     }
 
-    function claimFee(
-        uint256 amount,
-        uint256 _slippage,
-        uint256 _deadline
-    ) external onlyOwner {
+    function claimFee(uint256 amount,uint256 _slippage,uint256 _deadline) external onlyOwner {
+        
         if (_slippage == 0 || _slippage >= 5000) {
             revert InvalidBuffer(_slippage, 1, 4999);
         }
@@ -358,64 +318,29 @@ contract BasketTokenStandard is
         IERC20Upgradeable(bsktPair).transfer(bsktPair, amount);
         uint256[] memory _amounts = IBSKTPair(bsktPair).burn(address(this));
 
-        uint256 ethBought = _tokensToEth(
-            factoryInstance,
-            _amounts,
-            payable(getOwner()),
-            _slippage,
-            _deadline
-        );
+        uint256 ethBought = _tokensToEth(factoryInstance,_amounts,payable(getOwner()),_slippage,_deadline);
 
         emit FeeClaimed(address(this), getOwner(), amount, ethBought);
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    )
-        public
-        override(ERC721Upgradeable, IERC721Upgradeable)
-        onlyWhitelistedContract(to)
-    {
+    function transferFrom(address from,address to,uint256 tokenId)public override(ERC721Upgradeable, IERC721Upgradeable) onlyWhitelistedContract(to){
         super.transferFrom(from, to, tokenId);
     }
 
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    )
-        public
-        override(ERC721Upgradeable, IERC721Upgradeable)
-        onlyWhitelistedContract(to)
-    {
+    function safeTransferFrom(address from,address to,uint256 tokenId)public override(ERC721Upgradeable, IERC721Upgradeable) onlyWhitelistedContract(to){
         super.safeTransferFrom(from, to, tokenId);
     }
 
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory data
-    ) public
-         override(ERC721Upgradeable, IERC721Upgradeable)
-        onlyWhitelistedContract(to){
+    function safeTransferFrom(address from,address to,uint256 tokenId,bytes memory data) public override(ERC721Upgradeable, IERC721Upgradeable) onlyWhitelistedContract(to){
         super.safeTransferFrom(from, to, tokenId, data);
     }
 
-    function approve(address to, uint256 tokenId)
-        public
-        override(ERC721Upgradeable, IERC721Upgradeable)
-        onlyWhitelistedContract(to)
-    {
+    function approve(address to, uint256 tokenId)public override(ERC721Upgradeable, IERC721Upgradeable) onlyWhitelistedContract(to){
         super.approve(to, tokenId);
     }
 
-    function setApprovalForAll(address operator, bool approved)
-        public
-        override(ERC721Upgradeable, IERC721Upgradeable)        
-    {
+    function setApprovalForAll(address operator, bool approved) public override(ERC721Upgradeable, IERC721Upgradeable)        {
+        
         if(approved) {
             if (isContractAddress(operator) && !_factory().isWhitelistedContract(operator)) {
                 revert ContractNotWhitelisted();
@@ -425,34 +350,30 @@ contract BasketTokenStandard is
         super.setApprovalForAll(operator, approved);
     }
 
-    function _checkValidTokensAndWeights(
-        address[] memory _tokens,
-        uint256[] memory _weights
-    ) private view {
+    function _checkValidTokensAndWeights(address[] memory _tokens,uint256[] memory _weights) private view {
         uint256 _totalWeight;
         bool isAlvaPresent = false;
         address alvaAddress = _factory().alva();
 
         for (uint256 i = 0; i < _tokens.length; ) {
+            
             if (!isContractAddress(_tokens[i]))
                 revert InvalidContractAddress(_tokens[i]);
 
-            if (
-                !_checkForDuplicateAddress(_tokens, _tokens[i], i + 1) &&
-                _weights[i] != 0
-            ) {
+            if (!_checkForDuplicateAddress(_tokens, _tokens[i], i + 1) &&_weights[i] != 0) {
+                
                 if (_tokens[i] == alvaAddress) {
+
                     isAlvaPresent = true;
                     uint256 minPercentALVA = _factory().minPercentALVA();
+                    
                     if (_weights[i] < minPercentALVA) {
-                        revert InsufficientAlvaPercentage(
-                            _weights[i],
-                            minPercentALVA
-                        );
+                        revert InsufficientAlvaPercentage(_weights[i],minPercentALVA);
                     }
                 }
 
                 _totalWeight += _weights[i];
+
             } else {
                 if (_weights[i] == 0) {
                     revert ZeroTokenWeight();
@@ -472,17 +393,14 @@ contract BasketTokenStandard is
 
     
 
-    function _rebalance(
-        address[] memory _newTokens,
-        uint256[] memory _newWeights,
-        uint256 _slippage,
-        bool _isEmergencyStable,
-        uint256 _deadline
-    ) private checkLength(_newTokens.length, _newWeights.length) {
+    function _rebalance(address[] memory _newTokens,uint256[] memory _newWeights,uint256 _slippage,bool _isEmergencyStable,uint256 _deadline) private checkLength(_newTokens.length, _newWeights.length) {
+        
         if (_isEmergencyStable && _newTokens.length != 2) {
             revert InvalidEmergencyParams();
         }
+        
         if (_deadline <= block.timestamp) revert DeadlineInPast(_deadline);
+
 
         _checkValidTokensAndWeights(_newTokens, _newWeights);
 
@@ -497,28 +415,17 @@ contract BasketTokenStandard is
         _finalizeRebalance(_newTokens, _newWeights);
     }
 
-    function _prepareRebalance(
-        address wethAddress,
-        address routerAddress,
-        uint256 _slippage,
-        uint256 _deadline
-    ) private returns (uint256 wethBought) {
+    function _prepareRebalance(address wethAddress,address routerAddress,uint256 _slippage,uint256 _deadline) private returns (uint256 wethBought) {
+        
         uint256 tokensLength = _tokenDetails.tokens.length;
 
         for (uint256 i = 0; i < tokensLength; ) {
+            
             address token = _tokenDetails.tokens[i];
             uint256 balance = IERC20Upgradeable(token).balanceOf(address(this));
 
             if (balance > 0) {
-                wethBought += _swapTokensForTokens(
-                    token,
-                    wethAddress,
-                    routerAddress,
-                    balance,
-                    address(this),
-                    _slippage,
-                    _deadline
-                );
+                wethBought += _swapTokensForTokens(token,wethAddress,routerAddress,balance,address(this),_slippage,_deadline);
             }
 
             unchecked {
@@ -527,15 +434,8 @@ contract BasketTokenStandard is
         }
     }
 
-    function _allocateNewWeights(
-        uint256 wethAmount,
-        address[] memory _newTokens,
-        uint256[] memory _newWeights,
-        address wethAddress,
-        address routerAddress,
-        uint256 _slippage,
-        uint256 _deadline
-    ) private {
+    function _allocateNewWeights(uint256 wethAmount,address[] memory _newTokens,uint256[] memory _newWeights,address wethAddress,address routerAddress,uint256 _slippage,uint256 _deadline) private {
+        
         uint256 tokensLength = _newWeights.length;
         uint256 totalAllocated;
 
@@ -549,15 +449,7 @@ contract BasketTokenStandard is
                 totalAllocated += amountToSwap;
             }
 
-            _swapTokensForTokens(
-                wethAddress,
-                _newTokens[i],
-                routerAddress,
-                amountToSwap,
-                bsktPair,
-                _slippage,
-                _deadline
-            );
+            _swapTokensForTokens(wethAddress,_newTokens[i],routerAddress,amountToSwap,bsktPair,_slippage,_deadline);
 
             unchecked {
                 ++i;
@@ -565,17 +457,9 @@ contract BasketTokenStandard is
         }
     }
 
-    function _finalizeRebalance(
-        address[] memory _newTokens,
-        uint256[] memory _newWeights
-    ) private {
-        emit BSKTRebalanced(
-            address(this),
-            _tokenDetails.tokens,
-            _tokenDetails.weights,
-            _newTokens,
-            _newWeights
-        );
+    function _finalizeRebalance(address[] memory _newTokens,uint256[] memory _newWeights) private {
+        
+        emit BSKTRebalanced(address(this),_tokenDetails.tokens,_tokenDetails.weights,_newTokens,_newWeights);
 
         IBSKTPair(bsktPair).updateTokens(_newTokens);
         _tokenDetails.tokens = _newTokens;
@@ -588,33 +472,20 @@ contract BasketTokenStandard is
 
 
 
-    function _swapTokensForTokens(
-        address _tokenIn,
-        address _tokenOut,
-        address _router,
-        uint256 _amountIn,
-        address _to,
-        uint256 _slippage,
-        uint256 _deadline
-    ) private returns (uint256) {
+    function _swapTokensForTokens(address _tokenIn,address _tokenOut,address _router,uint256 _amountIn,address _to,uint256 _slippage,uint256 _deadline) private returns (uint256) {
+        
         IERC20Upgradeable(_tokenIn).safeApprove(_router, 0);
         IERC20Upgradeable(_tokenIn).safeApprove(_router, _amountIn);
 
         address[] memory path = _factory().getPath(_tokenIn, _tokenOut);
+        
         if (path.length != 2) revert InvalidLength();
 
-        uint256 _amountOutMin = (_factory().getAmountsOut(_amountIn, path) *
-            (PERCENT_PRECISION - _slippage)) / PERCENT_PRECISION;
+        uint256 _amountOutMin = (_factory().getAmountsOut(_amountIn, path) * (PERCENT_PRECISION - _slippage)) / PERCENT_PRECISION;
 
         uint256 balanceBefore = IERC20Upgradeable(_tokenOut).balanceOf(_to);
-        IUniswapV2Router(_router)
-            .swapExactTokensForTokensSupportingFeeOnTransferTokens(
-                _amountIn,
-                _amountOutMin,
-                path,
-                _to,
-                _deadline
-            );
+        
+        IUniswapV2Router(_router).swapExactTokensForTokensSupportingFeeOnTransferTokens(_amountIn,_amountOutMin,path,_to,_deadline);
         uint256 balanceAfter = IERC20Upgradeable(_tokenOut).balanceOf(_to);
 
         return balanceAfter - balanceBefore;
@@ -625,11 +496,7 @@ contract BasketTokenStandard is
         _supportedInterfaces[interfaceId] = true;
     }
 
-    function _checkForDuplicateAddress(
-        address[] memory _array,
-        address _address,
-        uint256 _startIndex
-    ) internal pure returns (bool) {
+    function _checkForDuplicateAddress(address[] memory _array,address _address,uint256 _startIndex) internal pure returns (bool) {
         if (_array.length > _startIndex) {
             for (uint256 i = _startIndex; i < _array.length; ) {
                 if (_array[i] == _address) revert DuplicateToken();
@@ -654,11 +521,14 @@ contract BasketTokenStandard is
     }
 
     function getTokenValueByWETH() public view returns (uint256 value) {
+        
         IFactory factoryInstance = _factory(); 
+        
         address wethAddress = factoryInstance.weth(); 
         uint256 tokensLength = _tokenDetails.tokens.length;
         
         for (uint256 i = 0; i < tokensLength; ) {
+            
             address token = _tokenDetails.tokens[i]; 
             uint256 balance = IBSKTPair(bsktPair).getTokenReserve(i); 
             
@@ -676,50 +546,32 @@ contract BasketTokenStandard is
         return _factory().getContractURI();
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(ERC721URIStorageUpgradeable, IERC165Upgradeable, IBSKT)
-        returns (bool)
-    {
+    function supportsInterface(bytes4 interfaceId)public view virtual override(ERC721URIStorageUpgradeable, IERC165Upgradeable, IBSKT) returns (bool){
         return
             super.supportsInterface(interfaceId) ||
             _supportedInterfaces[interfaceId];
     }
 
-    function royaltyInfo(
-        uint256,
-        uint256 _salePrice
-    )
-        external
-        view
-        override(IBSKT, IERC2981Upgradeable)
-        returns (address receiver, uint256 royaltyAmount)
-    {
+    function royaltyInfo(uint256,uint256 _salePrice) external view override(IBSKT, IERC2981Upgradeable) returns (address receiver, uint256 royaltyAmount){
+       
         receiver = _factory().royaltyReceiver();
         uint256 rate = _factory().royaltyPercentage();
+       
         if (rate > 0 && receiver != address(0)) {
             royaltyAmount = (_salePrice * rate) / PERCENT_PRECISION;
         }
     }
 
-    function getTokenDetails(uint256 _index)
-        external
-        view
-        returns (address token, uint256 weight)
-    {
+    function getTokenDetails(uint256 _index) external view returns (address token, uint256 weight){
+        
         uint256 length = _tokenDetails.tokens.length;
         if (_index >= length) revert TokenIndexOutOfBounds(_index, length);
+        
         token = _tokenDetails.tokens[_index];
         weight = _tokenDetails.weights[_index];
     }
 
-    function getTokenDetails()
-        external
-        view
-        returns (address[] memory tokens, uint256[] memory weights)
-    {
+    function getTokenDetails() external view returns (address[] memory tokens, uint256[] memory weights){
         return (_tokenDetails.tokens, _tokenDetails.weights);
     }
 

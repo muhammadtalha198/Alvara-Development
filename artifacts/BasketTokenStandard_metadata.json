@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.28+commit.7893614a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -1141,7 +1141,7 @@
 		"compilationTarget": {
 			"contracts/BSKT.sol": "BasketTokenStandard"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1322,11 +1322,11 @@
 			]
 		},
 		"contracts/BSKT.sol": {
-			"keccak256": "0xcd83545941e44b391448870688110f88dcb0af75ad94df6dc33014d7d57e7df3",
+			"keccak256": "0x3732588b0d94a1b64472d14caace05ddab8e52019cb54dccc8c8c5543e999706",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://61d388065b9fe1126e48d144b79da5094e79741d8203d1bad1e0c2c999fa1346",
-				"dweb:/ipfs/QmeQMzTgnE54Xd2Zrjfn2HqsDSjoYZoE92gYNcKkMkEWQv"
+				"bzz-raw://92e01bae10f26334c2e60f2617941aab8d3969a8f2f78dffa3cc927fd327845d",
+				"dweb:/ipfs/QmbCnu7cctioqRx8TiuFa3fidokb67MAX3ykeYu5oXbRFB"
 			]
 		},
 		"contracts/interfaces/IBSKT.sol": {
@@ -1367,6 +1367,14 @@
 			"urls": [
 				"bzz-raw://558156cd6d88b2a54f85f99ebc19c060fbbe66f94ce49ef7f6d8c9a9666c2b1e",
 				"dweb:/ipfs/QmfL1PJvMh7nFArgbs9FdWyjkqLQy1fp4Cj4hxWT37BvzP"
+			]
+		},
+		"hardhat/console.sol": {
+			"keccak256": "0xf2560b5386574153057104d19a9e68a32ee912cf23c0c8df1fe9a0607f42d543",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a63166e036b040826baa513772451a79925daa304b38749100efb089ac07cdc2",
+				"dweb:/ipfs/QmUtMTxUFKU6a5oFXsEJnTPvb3QPb7GDDmSv5yZ1jFHDwR"
 			]
 		}
 	},
